@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_planner_pro/constants/colors/custom_colors.dart';
 import 'package:travel_planner_pro/features/auth/screens/auth_screen.dart';
+import 'package:travel_planner_pro/router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: CustomColors.yellow),
         useMaterial3: true,
       ),
+      initialRoute: AuthScreen.routeName,
       home: const AuthScreen(),
+      onGenerateRoute: (settings) {
+        return generateRoute(settings);
+      },
     );
   }
 }
