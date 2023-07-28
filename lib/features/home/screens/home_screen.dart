@@ -22,19 +22,38 @@ class HomeScreen extends StatelessWidget {
           children: [
             50.height,
             Expanded(
-              child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.all(50),
-                    child: FittedBox(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(50, 50, 0, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Expanded(
+                      child: FittedBox(
                         child: Text(
-                      'Travel Planner Pro',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                          color: CustomColors.yellow),
-                    )),
-                  )),
+                          'Travel Planner Pro',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
+                              color: CustomColors.yellow),
+                        ),
+                      ),
+                    ),
+                    60.height,
+                    const Expanded(
+                      flex: 2,
+                      child: Text(
+                        'Escape the tourist traps with unforgettable travel experiences',
+                        softWrap: true,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 50,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
             Expanded(
               child: Container(
@@ -52,7 +71,7 @@ class HomeScreen extends StatelessWidget {
                       child: Text(
                         'Travel with us',
                         style:
-                            TextStyle(fontSize: 30, color: CustomColors.yellow),
+                            TextStyle(fontSize: 50, color: CustomColors.yellow),
                       ),
                     ),
                     20.height,

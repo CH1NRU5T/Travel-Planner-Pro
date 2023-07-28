@@ -3,7 +3,7 @@ import 'package:travel_planner_pro/features/auth/widgets/login_form.dart';
 import 'package:travel_planner_pro/features/auth/widgets/signup_form.dart';
 
 class PhoneAuthScreen extends StatefulWidget {
-  const PhoneAuthScreen({super.key, required this.arg});
+  const PhoneAuthScreen({super.key, this.arg = 'login'});
   final String arg;
   @override
   State<PhoneAuthScreen> createState() => _AuthScreenState();
