@@ -3,14 +3,14 @@ import 'package:lottie/lottie.dart';
 import 'package:travel_planner_pro/features/auth/widgets/login_form.dart';
 import 'package:travel_planner_pro/features/auth/widgets/signup_form.dart';
 
-class AuthScreen extends StatefulWidget {
-  const AuthScreen({super.key});
+class WebAuthScreen extends StatefulWidget {
+  const WebAuthScreen({super.key});
 
   @override
-  State<AuthScreen> createState() => _AuthScreenState();
+  State<WebAuthScreen> createState() => _AuthScreenState();
 }
 
-class _AuthScreenState extends State<AuthScreen> {
+class _AuthScreenState extends State<WebAuthScreen> {
   late TextEditingController emailController;
   late TextEditingController passwordController;
   late TextEditingController? confirmPasswordController;
