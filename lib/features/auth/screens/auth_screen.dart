@@ -9,9 +9,13 @@ class AuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ResponsiveWidget(
-      mobile: PhoneAuthScreen(),
-      web: WebAuthScreen(),
+    String arg = ModalRoute.of(context)!.settings.arguments as String;
+
+    return ResponsiveWidget(
+      mobile: PhoneAuthScreen(
+        arg: arg,
+      ),
+      web: WebAuthScreen(arg: arg),
     );
   }
 }

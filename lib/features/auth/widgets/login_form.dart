@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_planner_pro/constants/extensions/extensions.dart';
+import 'package:travel_planner_pro/features/auth/widgets/auth_screen_text_button.dart';
 
 import '../../../constants/colors/custom_colors.dart';
 import '../../../customWidgets/custom_text_form_field.dart';
@@ -33,13 +34,7 @@ class LoginForm extends StatelessWidget {
           keyboardType: TextInputType.visiblePassword,
         ),
         20.height,
-        TextButton(
-          onPressed: () {},
-          style: TextButton.styleFrom(
-              backgroundColor: CustomColors.yellow,
-              padding: const EdgeInsets.all(20)),
-          child: const Text('Login'),
-        ),
+        AuthScreenTextButton(label: 'Login', onPressed: () {}),
         20.height,
         Center(
           child: RichText(
