@@ -60,7 +60,7 @@ class SignupForm extends StatelessWidget {
         TextButton(
           onPressed: () {},
           style: TextButton.styleFrom(
-              // backgroundColor: CustomColors.yellow,
+              backgroundColor: CustomColors.yellow,
               padding: const EdgeInsets.all(20)),
           child: const Text('Sign up'),
         ),
