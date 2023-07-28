@@ -4,6 +4,7 @@ import 'package:travel_planner_pro/features/auth/screens/phone_auth_screen.dart'
 import 'package:travel_planner_pro/features/auth/screens/web_auth_screen.dart';
 
 class AuthScreen extends StatelessWidget {
+  static const routeName = '/auth-screen';
   const AuthScreen({super.key});
 
   @override
