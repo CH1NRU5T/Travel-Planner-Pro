@@ -3,8 +3,8 @@ import 'package:travel_planner_pro/features/auth/widgets/login_form.dart';
 import 'package:travel_planner_pro/features/auth/widgets/signup_form.dart';
 
 class PhoneAuthScreen extends StatefulWidget {
-  const PhoneAuthScreen({super.key});
-
+  const PhoneAuthScreen({super.key, required this.arg});
+  final String arg;
   @override
   State<PhoneAuthScreen> createState() => _AuthScreenState();
 }
@@ -15,12 +15,13 @@ class _AuthScreenState extends State<PhoneAuthScreen> {
   late TextEditingController? confirmPasswordController;
   late TextEditingController? usernameController;
   late TextEditingController? phoneNumberController;
-  bool isLogin = true;
+  late bool isLogin;
   @override
   void initState() {
     super.initState();
     emailController = TextEditingController();
     passwordController = TextEditingController();
+    isLogin = widget.arg == 'login' ? true : false;
   }
 
   void setForm() {

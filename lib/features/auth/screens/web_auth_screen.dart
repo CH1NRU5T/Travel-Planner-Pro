@@ -4,8 +4,8 @@ import 'package:travel_planner_pro/features/auth/widgets/login_form.dart';
 import 'package:travel_planner_pro/features/auth/widgets/signup_form.dart';
 
 class WebAuthScreen extends StatefulWidget {
-  const WebAuthScreen({super.key});
-
+  const WebAuthScreen({super.key, required this.arg});
+  final String arg;
   @override
   State<WebAuthScreen> createState() => _AuthScreenState();
 }
@@ -16,12 +16,13 @@ class _AuthScreenState extends State<WebAuthScreen> {
   late TextEditingController? confirmPasswordController;
   late TextEditingController? usernameController;
   late TextEditingController? phoneNumberController;
-  bool isLogin = true;
+  late bool isLogin;
   @override
   void initState() {
     super.initState();
     emailController = TextEditingController();
     passwordController = TextEditingController();
+    isLogin = widget.arg == 'login' ? true : false;
   }
 
   void setForm() {

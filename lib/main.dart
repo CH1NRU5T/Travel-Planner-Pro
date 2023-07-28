@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:travel_planner_pro/constants/colors/custom_colors.dart';
-import 'package:travel_planner_pro/features/auth/screens/auth_screen.dart';
+import 'package:travel_planner_pro/features/home/screens/home_screen.dart';
 import 'package:travel_planner_pro/router.dart';
 
 void main() {
@@ -17,9 +18,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: CustomColors.yellow),
         useMaterial3: true,
+        textTheme: GoogleFonts.jetBrainsMonoTextTheme(
+          Theme.of(context).textTheme,
+        ),
       ),
-      initialRoute: AuthScreen.routeName,
-      home: const AuthScreen(),
+      home: const HomeScreen(),
       onGenerateRoute: (settings) {
         return generateRoute(settings);
       },
