@@ -4,7 +4,7 @@ import 'package:travel_planner_pro/features/auth/widgets/login_form.dart';
 import 'package:travel_planner_pro/features/auth/widgets/signup_form.dart';
 
 class WebAuthScreen extends StatefulWidget {
-  const WebAuthScreen({super.key, required this.arg});
+  const WebAuthScreen({super.key, this.arg = 'login'});
   final String arg;
   @override
   State<WebAuthScreen> createState() => _AuthScreenState();
