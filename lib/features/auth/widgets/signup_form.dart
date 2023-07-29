@@ -1,7 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:travel_planner_pro/constants/extensions/extensions.dart';
 import 'package:travel_planner_pro/features/auth/widgets/auth_screen_text_button.dart';
+import 'package:travel_planner_pro/providers/auth_provider.dart';
 
 import '../../../constants/colors/custom_colors.dart';
 import '../../../customWidgets/custom_text_form_field.dart';
@@ -15,6 +17,18 @@ class SignupForm extends StatelessWidget {
       required this.usernameController,
       required this.phoneNumberController,
       required this.setForm});
+
+  void signUp(BuildContext context) async {
+    context.read<AuthProvider>().signUp(
+          name: usernameController.text,
+          context: context,
+          email: emailController.text,
+          password: passwordController.text,
+          userName: usernameController.text,
+          phone: phoneNumberController.text,
+        );
+  }
+
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final TextEditingController confirmPasswordController;
@@ -58,7 +72,12 @@ class SignupForm extends StatelessWidget {
           keyboardType: TextInputType.visiblePassword,
         ),
         20.height,
-        AuthScreenTextButton(label: 'Sign Up', onPressed: () {}),
+        AuthScreenTextButton(
+          label: 'Sign Up',
+          onPressed: () {
+            signUp(context);
+          },
+        ),
         20.height,
         Center(
           child: RichText(

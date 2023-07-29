@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../constants/colors/custom_colors.dart';
 
-class HomeScreenTextButton extends StatelessWidget {
-  const HomeScreenTextButton(
+class LandingScreenTextButton extends StatelessWidget {
+  const LandingScreenTextButton(
       {super.key, required this.onPressed, required this.label});
   final Function onPressed;
   final String label;

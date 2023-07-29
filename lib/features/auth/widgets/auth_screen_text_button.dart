@@ -10,7 +10,9 @@ class AuthScreenTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () => onPressed,
+      onPressed: () {
+        onPressed();
+      },
       style: TextButton.styleFrom(
           backgroundColor: CustomColors.yellow,
           shape: RoundedRectangleBorder(
