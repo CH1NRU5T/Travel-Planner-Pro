@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:travel_planner_pro/constants/colors/custom_colors.dart';
-import 'package:travel_planner_pro/features/home/screens/home_screen.dart';
+import 'package:travel_planner_pro/features/landing_page/screens/landing_screen.dart';
+import 'package:travel_planner_pro/providers/auth_provider.dart';
 import 'package:travel_planner_pro/router.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => AuthProvider(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -22,7 +33,7 @@ class MyApp extends StatelessWidget {
           Theme.of(context).textTheme,
         ),
       ),
-      home: const HomeScreen(),
+      home: const LandingScreen(),
       onGenerateRoute: (settings) {
         return generateRoute(settings);
       },

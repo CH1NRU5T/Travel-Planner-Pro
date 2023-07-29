@@ -16,7 +16,7 @@ class Api {
       if (response.statusCode == 200) {
         return (null, User.fromJson(response.body));
       } else {
-        return ('error', null);
+        return (jsonDecode(response.body)['error'] as String, null);
       }
     } catch (e) {
       return (e.toString(), null);

@@ -1,23 +1,19 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:travel_planner_pro/constants/extensions/extensions.dart';
-import 'package:travel_planner_pro/features/auth/services/auth_service.dart';
 import 'package:travel_planner_pro/features/auth/widgets/auth_screen_text_button.dart';
 
 import '../../../constants/colors/custom_colors.dart';
 import '../../../customWidgets/custom_text_form_field.dart';
-import '../../../models/user_model.dart';
+import '../../../providers/auth_provider.dart';
 
 class LoginForm extends StatelessWidget {
-  void login() async {
-    AuthService authService = AuthService();
-    (String?, User?) data = await authService.login(
-        emailController.text.trim(), passwordController.text);
-    if (data.$1 == null) {
-      // successful
-    } else {
-      // error
-    }
+  void login(BuildContext context) async {
+    context.read<AuthProvider>().login(
+        email: emailController.text.trim(),
+        password: passwordController.text,
+        context: context);
   }
 
   const LoginForm(
@@ -50,7 +46,7 @@ class LoginForm extends StatelessWidget {
         AuthScreenTextButton(
             label: 'Login',
             onPressed: () {
-              login();
+              login(context);
             }),
         20.height,
         Center(
