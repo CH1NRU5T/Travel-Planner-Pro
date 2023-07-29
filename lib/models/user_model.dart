@@ -2,16 +2,16 @@ import 'dart:convert';
 
 class User {
   String token;
-  String id;
-  String userName;
-  String name;
-  String email;
+  String? id;
+  String? userName;
+  String? name;
+  String? email;
   User({
     required this.token,
-    required this.id,
-    required this.userName,
-    required this.name,
-    required this.email,
+    this.id,
+    this.userName,
+    this.name,
+    this.email,
   });
 
   @override

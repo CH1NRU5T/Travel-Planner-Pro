@@ -74,7 +74,8 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
         ),
       ),
       appBar: AppBar(
-        title: const Text('Travel Planner'),
+        centerTitle: true,
+        title: const Icon(Icons.flight_takeoff_rounded),
         actions: [
           ClipRRect(
             borderRadius: BorderRadius.circular(20),

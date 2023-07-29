@@ -104,6 +104,7 @@ class _ExploreMapsScreenState extends State<ExploreMapsScreen> {
                     ),
                   ),
                   Expanded(
+                      flex: 2,
                       child: CarouselSlider.builder(
                           itemCount: locationList!.$2!.length,
                           itemBuilder: (context, index, realIndex) {
