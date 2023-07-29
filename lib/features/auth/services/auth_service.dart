@@ -10,4 +10,22 @@ class AuthService {
         headers: {'Content-Type': 'application/json'},
         body: {'email': email, 'password': password});
   }
+
+  Future<(String?, User?)> signUp({
+    required String email,
+    required String userName,
+    required String name,
+    required String phone,
+    required String password,
+  }) async {
+    return await Api.postRequest(url: '${Env.baseUrl}/api/v1/signup', headers: {
+      'Content-Type': 'application/json'
+    }, body: {
+      'email': email,
+      'password': password,
+      'name': name,
+      'phone': phone,
+      'userName': userName
+    });
+  }
 }
