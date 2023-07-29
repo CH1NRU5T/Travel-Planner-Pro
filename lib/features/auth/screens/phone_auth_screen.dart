@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:travel_planner_pro/features/auth/widgets/login_form.dart';
 import 'package:travel_planner_pro/features/auth/widgets/signup_form.dart';
 
@@ -50,18 +51,40 @@ class _AuthScreenState extends State<PhoneAuthScreen> {
         child: Padding(
           padding: EdgeInsets.all(MediaQuery.sizeOf(context).width / 15),
           child: isLogin
-              ? LoginForm(
-                  emailController: emailController,
-                  passwordController: passwordController,
-                  setForm: setForm,
+              ? Column(
+                  children: [
+                    Expanded(
+                      child: Lottie.asset('assets/lottie/lottieAnimation.zip',
+                          repeat: false),
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: LoginForm(
+                        emailController: emailController,
+                        passwordController: passwordController,
+                        setForm: setForm,
+                      ),
+                    ),
+                  ],
                 )
-              : SignupForm(
-                  emailController: emailController,
-                  passwordController: passwordController,
-                  confirmPasswordController: confirmPasswordController!,
-                  usernameController: usernameController!,
-                  phoneNumberController: phoneNumberController!,
-                  setForm: setForm,
+              : Column(
+                  children: [
+                    Expanded(
+                      child: Lottie.asset('assets/lottie/lottieAnimation.zip',
+                          repeat: false),
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: SignupForm(
+                        emailController: emailController,
+                        passwordController: passwordController,
+                        confirmPasswordController: confirmPasswordController!,
+                        usernameController: usernameController!,
+                        phoneNumberController: phoneNumberController!,
+                        setForm: setForm,
+                      ),
+                    ),
+                  ],
                 ),
         ),
       ),
