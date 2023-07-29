@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:travel_planner_pro/constants/colors/custom_colors.dart';
 import 'package:travel_planner_pro/features/landing_page/screens/landing_screen.dart';
 import 'package:travel_planner_pro/providers/auth_provider.dart';
+import 'package:travel_planner_pro/providers/map_provider.dart';
 import 'package:travel_planner_pro/router.dart';
 
 void main() {
@@ -12,6 +13,9 @@ void main() {
       providers: [
         ChangeNotifierProvider(
           create: (_) => AuthProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => MapProvider(),
         ),
       ],
       child: const MyApp(),
