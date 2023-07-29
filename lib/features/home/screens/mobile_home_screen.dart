@@ -3,7 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:travel_planner_pro/constants/extensions/extensions.dart';
 
 import '../../../constants/colors/custom_colors.dart';
+import '../../../customWidgets/loader.dart';
 import '../../../providers/auth_provider.dart';
+import '../../../providers/destination_provider.dart';
 import '../../explore_destination/screens/explore_destination_screen.dart';
 import '../../explore_maps/screens/explore_maps_screen.dart';
 import '../../itinerary/screens/itinerary_screen.dart';
@@ -22,7 +24,18 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
     });
   }
 
-  int selectedIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+    fetchDestinationList();
+  }
+
+  void fetchDestinationList() {
+    context.read<DestinationProvider>().fetchDestinationList(context);
+    context.read<DestinationProvider>().fetchSavedDestinationList(context);
+  }
+
+  int selectedIndex = 1;
 
   List<Widget> screens = [
     const ItineraryScreen(),
@@ -33,41 +46,95 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(
-        child: ListView(
+        backgroundColor: CustomColors.darkBlue,
+        child: Column(
           children: [
             DrawerHeader(
-              child: FittedBox(
-                child: Text(
-                  'Travel Planner',
-                  style: TextStyle(color: CustomColors.yellow),
-                ),
+              child: Column(
+                children: [
+                  const Expanded(
+                      child: Loader(
+                    loop: false,
+                  )),
+                  Expanded(
+                    child: FittedBox(
+                      child: Text(
+                        'Travel Planner',
+                        style: TextStyle(color: CustomColors.yellow),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             ListTile(
-              tileColor: selectedIndex == 0 ? Colors.grey.shade300 : null,
-              title: const Text('Itinerary'),
-              trailing: const Icon(Icons.notes_outlined),
+              selected: selectedIndex == 0,
+              title: const Text(
+                'Itinerary',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              trailing: const Icon(
+                Icons.notes_outlined,
+                color: Colors.white,
+              ),
               onTap: () {
                 setSelectedIndex(0);
-                Navigator.pop(context);
               },
             ),
             ListTile(
-              tileColor: selectedIndex == 1 ? Colors.grey.shade300 : null,
-              title: const Text('Explore Destination'),
-              trailing: const Icon(Icons.location_on_rounded),
+              selected: selectedIndex == 1,
+              title: const Text(
+                'Explore Destination',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              trailing: const Icon(
+                Icons.location_on_rounded,
+                color: Colors.white,
+              ),
               onTap: () {
                 setSelectedIndex(1);
-                Navigator.pop(context);
               },
             ),
             ListTile(
-              tileColor: selectedIndex == 2 ? Colors.grey.shade300 : null,
-              title: const Text('Explore Maps'),
-              trailing: const Icon(Icons.map_outlined),
+              selected: selectedIndex == 2,
+              title: const Text(
+                'Explore Maps',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              trailing: const Icon(
+                Icons.map_outlined,
+                color: Colors.white,
+              ),
               onTap: () {
                 setSelectedIndex(2);
-                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              selected: selectedIndex == 2,
+              title: const Text(
+                'Saved Destinations',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              trailing: const Icon(
+                Icons.my_location_rounded,
+                color: Colors.white,
+              ),
+              onTap: () {
+                setSelectedIndex(2);
+              },
+            ),
+            ListTile(
+              selected: selectedIndex == 2,
+              title: const Text(
+                'Saved Itineraries',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              trailing: const Icon(
+                Icons.timeline_outlined,
+                color: Colors.white,
+              ),
+              onTap: () {
+                setSelectedIndex(2);
               },
             ),
           ],
@@ -89,13 +156,7 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
                   return [
                     PopupMenuItem(
                       onTap: () {
-                        context.read<AuthProvider>().clearUser();
-                        Navigator.pop(context);
-                        // Navigator.pushNamedAndRemoveUntil(
-                        //   context,
-                        //   LandingScreen.routeName,
-                        //   (_) => true,
-                        // );
+                        context.read<AuthProvider>().clearUser(context);
                       },
                       child: const Text(
                         ('Logout'),

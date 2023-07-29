@@ -9,9 +9,10 @@ class AuthProvider extends ChangeNotifier {
   User? user;
   AuthService authService = AuthService();
 
-  void clearUser() {
+  void clearUser(BuildContext context) {
     user = null;
     Prefs.remove('token');
+    Navigator.pop(context);
     notifyListeners();
   }
 

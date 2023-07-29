@@ -18,42 +18,54 @@ class LoginForm extends StatelessWidget {
 
   const LoginForm(
       {super.key,
+      this.isWeb = false,
       required this.emailController,
       required this.passwordController,
       required this.setForm});
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final Function setForm;
+  final bool isWeb;
+
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        const Text(
+          'Login',
+          style: TextStyle(
+              color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),
+        ),
+        15.height,
         CustomTextFormField(
           controller: emailController,
           label: 'Email',
           keyboardType: TextInputType.emailAddress,
         ),
-        20.height,
+        15.height,
         CustomTextFormField(
           controller: passwordController,
           label: 'Password',
           isPasswordField: true,
           keyboardType: TextInputType.visiblePassword,
         ),
-        20.height,
+        15.height,
         AuthScreenTextButton(
             label: 'Login',
             onPressed: () {
               login(context);
             }),
-        20.height,
+        15.height,
         Center(
           child: RichText(
               text: TextSpan(
+            style: const TextStyle(fontSize: 19),
             children: [
-              const TextSpan(text: 'Don\'t have an account? '),
+              TextSpan(
+                  text: 'Don\'t have an account? ',
+                  style: TextStyle(color: isWeb ? Colors.white : Colors.black)),
               TextSpan(
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {

@@ -8,8 +8,11 @@ import 'package:travel_planner_pro/env/env.dart';
 import 'package:travel_planner_pro/features/landing_page/screens/landing_screen.dart';
 import 'package:travel_planner_pro/prefs.dart';
 import 'package:travel_planner_pro/providers/auth_provider.dart';
+import 'package:travel_planner_pro/providers/destination_provider.dart';
 import 'package:travel_planner_pro/providers/map_provider.dart';
 import 'package:travel_planner_pro/router.dart';
+
+import 'models/user_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,6 +26,9 @@ void main() async {
         ChangeNotifierProvider(
           create: (_) => MapProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => DestinationProvider(),
+        ),
       ],
       child: const MyApp(),
     ),
@@ -34,6 +40,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (Prefs.getString('token') != null) {
+      context
+          .read<AuthProvider>()
+          .setUser(User(token: Prefs.getString('token')!));
+    }
     html.ScriptElement script = html.ScriptElement()
       ..src =
           'https://maps.googleapis.com/maps/api/js?key=${Env.key}&libraries=libraries=drawing,visualization,places';

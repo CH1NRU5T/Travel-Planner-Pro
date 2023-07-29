@@ -14,8 +14,9 @@ class LandingScreen extends StatelessWidget {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
+        decoration: BoxDecoration(
+          color: Colors.black.withOpacity(1),
+          image: const DecorationImage(
             image: AssetImage('assets/images/home-bg1.jpg'),
             fit: BoxFit.cover,
             opacity: 0.9,
@@ -30,7 +31,7 @@ class LandingScreen extends StatelessWidget {
                   'Travel Planner Pro',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 30,
+                      fontSize: 50,
                       color: CustomColors.yellow),
                 ),
               ),
@@ -43,6 +44,7 @@ class LandingScreen extends StatelessWidget {
                     child: Text(
                       'Escape the tourist traps with unforgettable travel experiences',
                       style: TextStyle(
+                        fontWeight: FontWeight.bold,
                         color: Colors.white,
                         fontSize: MediaQuery.sizeOf(context).shortestSide / 15,
                       ),
