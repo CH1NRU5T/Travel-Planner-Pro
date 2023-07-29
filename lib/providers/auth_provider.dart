@@ -17,7 +17,8 @@ class AuthProvider extends ChangeNotifier {
       user = data.$2;
       notifyListeners();
       if (context.mounted) {
-        Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+        Navigator.pushNamedAndRemoveUntil(
+            context, HomeScreen.routeName, (_) => false);
       }
     } else {
       if (context.mounted) {
@@ -42,7 +43,7 @@ class AuthProvider extends ChangeNotifier {
       name: name,
     );
     if (data.$1 == null) {
-      user = data.$2;
+      setUser(data.$2!);
       notifyListeners();
       if (context.mounted) {
         Navigator.pushReplacementNamed(context, HomeScreen.routeName);
@@ -56,5 +57,10 @@ class AuthProvider extends ChangeNotifier {
         );
       }
     }
+  }
+
+  void setUser(User user) {
+    this.user = user;
+    notifyListeners();
   }
 }
