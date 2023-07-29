@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:travel_planner_pro/constants/extensions/extensions.dart';
 import 'package:travel_planner_pro/features/explore_destination/screens/explore_destination_screen.dart';
 import 'package:travel_planner_pro/features/itinerary/screens/itinerary_screen.dart';
+import 'package:travel_planner_pro/providers/auth_provider.dart';
 
 import '../../../constants/colors/custom_colors.dart';
 import '../../explore_maps/screens/explore_maps_screen.dart';
@@ -88,7 +90,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   return [
                     PopupMenuItem(
                       onTap: () {
+                        context.read<AuthProvider>().clearUser();
                         Navigator.pop(context);
+                        // Navigator.pushNamedAndRemoveUntil(
+                        //   context,
+                        //   LandingScreen.routeName,
+                        //   (_) => true,
+                        // );
                       },
                       child: const Text(
                         ('Logout'),

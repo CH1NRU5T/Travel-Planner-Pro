@@ -52,7 +52,10 @@ class _AuthScreenState extends State<WebAuthScreen> {
           Expanded(
               child: Padding(
             padding: const EdgeInsets.all(30),
-            child: Lottie.asset('assets/lottie/lottieAnimation.zip'),
+            child: Lottie.asset(
+              repeat: false,
+              'assets/lottie/lottieAnimation.zip',
+            ),
           )),
           Expanded(
             child: Form(

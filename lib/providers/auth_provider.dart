@@ -8,6 +8,11 @@ class AuthProvider extends ChangeNotifier {
   User? user;
   AuthService authService = AuthService();
 
+  void clearUser() {
+    user = null;
+    notifyListeners();
+  }
+
   void login(
       {required String email,
       required String password,
@@ -17,8 +22,10 @@ class AuthProvider extends ChangeNotifier {
       user = data.$2;
       notifyListeners();
       if (context.mounted) {
-        Navigator.pushNamedAndRemoveUntil(
-            context, HomeScreen.routeName, (_) => false);
+        Navigator.pushReplacementNamed(
+          context,
+          HomeScreen.routeName,
+        );
       }
     } else {
       if (context.mounted) {
