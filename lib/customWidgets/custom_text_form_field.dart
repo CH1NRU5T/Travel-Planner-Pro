@@ -29,6 +29,8 @@ class CustomTextFormField extends StatelessWidget {
               controller: controller,
               keyboardType: keyboardType,
               decoration: InputDecoration(
+                fillColor: Colors.white,
+                filled: true,
                 border: const OutlineInputBorder(),
                 labelText: label,
               ),
@@ -61,6 +63,8 @@ class _PasswordFieldState extends State<PasswordField> {
         obscureText: obscure,
         keyboardType: widget.keyboardType,
         decoration: InputDecoration(
+          fillColor: Colors.white,
+          filled: true,
           border: const OutlineInputBorder(),
           labelText: widget.label,
           suffixIcon: IconButton(

@@ -11,6 +11,7 @@ import '../../../customWidgets/custom_text_form_field.dart';
 class SignupForm extends StatelessWidget {
   const SignupForm(
       {super.key,
+      this.isWeb = false,
       required this.emailController,
       required this.passwordController,
       required this.confirmPasswordController,
@@ -34,6 +35,7 @@ class SignupForm extends StatelessWidget {
   final TextEditingController confirmPasswordController;
   final TextEditingController usernameController;
   final TextEditingController phoneNumberController;
+  final bool isWeb;
   final Function setForm;
   @override
   Widget build(BuildContext context) {
@@ -41,6 +43,12 @@ class SignupForm extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        const Text(
+          'Sign Up',
+          style: TextStyle(
+              color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),
+        ),
+        20.height,
         CustomTextFormField(
           controller: usernameController,
           label: 'Username',
@@ -82,8 +90,11 @@ class SignupForm extends StatelessWidget {
         Center(
           child: RichText(
               text: TextSpan(
+            style: const TextStyle(fontSize: 19),
             children: [
-              const TextSpan(text: 'Already have an account? '),
+              const TextSpan(
+                  text: 'Already have an account? ',
+                  style: TextStyle(color: Colors.white)),
               TextSpan(
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {

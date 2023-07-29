@@ -2,6 +2,7 @@ import 'dart:convert';
 
 class Destination {
   String destinationName;
+  String id;
   String cityName;
   String latitude;
   String longitude;
@@ -13,6 +14,7 @@ class Destination {
   List<dynamic> attractions;
   String category;
   Destination({
+    required this.id,
     required this.destinationName,
     required this.cityName,
     required this.latitude,
@@ -28,6 +30,7 @@ class Destination {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'id': id,
       'destinationName': destinationName,
       'cityName': cityName,
       'latitude': latitude,
@@ -44,6 +47,7 @@ class Destination {
 
   factory Destination.fromMap(Map<String, dynamic> map) {
     return Destination(
+      id: map['id'] as String,
       destinationName: map['destinationName'] as String,
       cityName: map['cityName'] as String,
       latitude: map['latitude'] as String,
@@ -65,6 +69,6 @@ class Destination {
 
   @override
   String toString() {
-    return 'Destination(destinationName: $destinationName, cityName: $cityName, latitude: $latitude, longitude: $longitude, landmarks: $landmarks, state: $state, description: $description, images: $images, avgTravelExpenses: $avgTravelExpenses, attractions: $attractions, category: $category)';
+    return 'Destination(destinationName: $destinationName, id:$id, cityName: $cityName, latitude: $latitude, longitude: $longitude, landmarks: $landmarks, state: $state, description: $description, images: $images, avgTravelExpenses: $avgTravelExpenses, attractions: $attractions, category: $category)';
   }
 }

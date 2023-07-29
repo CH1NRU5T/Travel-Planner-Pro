@@ -8,6 +8,7 @@ import 'package:travel_planner_pro/env/env.dart';
 import 'package:travel_planner_pro/features/landing_page/screens/landing_screen.dart';
 import 'package:travel_planner_pro/prefs.dart';
 import 'package:travel_planner_pro/providers/auth_provider.dart';
+import 'package:travel_planner_pro/providers/destination_provider.dart';
 import 'package:travel_planner_pro/providers/map_provider.dart';
 import 'package:travel_planner_pro/router.dart';
 
@@ -22,6 +23,9 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (_) => MapProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => DestinationProvider(),
         ),
       ],
       child: const MyApp(),

@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:travel_planner_pro/customWidgets/loader.dart';
 import 'package:travel_planner_pro/features/explore_maps/widgets/destination_container.dart';
 
 import '../../../models/destination_model.dart';
@@ -78,7 +79,7 @@ class _ExploreMapsScreenState extends State<ExploreMapsScreen> {
   @override
   Widget build(BuildContext context) {
     return locationList == null
-        ? const CircularProgressIndicator()
+        ? const Loader()
         : locationList!.$1 == null
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
