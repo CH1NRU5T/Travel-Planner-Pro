@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_planner_pro/features/auth/services/auth_service.dart';
 import 'package:travel_planner_pro/features/home/screens/home_screen.dart';
+import 'package:travel_planner_pro/prefs.dart';
 
 import '../models/user_model.dart';
 
@@ -10,6 +11,7 @@ class AuthProvider extends ChangeNotifier {
 
   void clearUser() {
     user = null;
+    Prefs.remove('token');
     notifyListeners();
   }
 
@@ -20,6 +22,7 @@ class AuthProvider extends ChangeNotifier {
     (String?, User?) data = await authService.login(email.trim(), password);
     if (data.$1 == null) {
       user = data.$2;
+      Prefs.setString('token', user!.token);
       notifyListeners();
       if (context.mounted) {
         Navigator.pushReplacementNamed(

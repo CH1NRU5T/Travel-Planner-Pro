@@ -19,12 +19,19 @@ class CustomTextFormField extends StatelessWidget {
             label: label,
             controller: controller,
           )
-        : TextFormField(
-            controller: controller,
-            keyboardType: keyboardType,
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              labelText: label,
+        : AutofillGroup(
+            child: TextFormField(
+              autofillHints: [
+                keyboardType == TextInputType.emailAddress
+                    ? AutofillHints.username
+                    : AutofillHints.name
+              ],
+              controller: controller,
+              keyboardType: keyboardType,
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                labelText: label,
+              ),
             ),
           );
   }
@@ -47,20 +54,23 @@ class _PasswordFieldState extends State<PasswordField> {
   bool obscure = true;
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: widget.controller,
-      obscureText: obscure,
-      keyboardType: widget.keyboardType,
-      decoration: InputDecoration(
-        border: const OutlineInputBorder(),
-        labelText: widget.label,
-        suffixIcon: IconButton(
-          onPressed: () {
-            setState(() {
-              obscure = !obscure;
-            });
-          },
-          icon: Icon(obscure ? Icons.visibility : Icons.visibility_off),
+    return AutofillGroup(
+      child: TextFormField(
+        autofillHints: const [AutofillHints.password],
+        controller: widget.controller,
+        obscureText: obscure,
+        keyboardType: widget.keyboardType,
+        decoration: InputDecoration(
+          border: const OutlineInputBorder(),
+          labelText: widget.label,
+          suffixIcon: IconButton(
+            onPressed: () {
+              setState(() {
+                obscure = !obscure;
+              });
+            },
+            icon: Icon(obscure ? Icons.visibility : Icons.visibility_off),
+          ),
         ),
       ),
     );

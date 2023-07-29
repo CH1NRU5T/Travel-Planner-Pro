@@ -8,7 +8,7 @@ class AuthService {
     return await Api.postRequest(
         url: '${Env.baseUrl}/api/v1/signin',
         headers: {'Content-Type': 'application/json'},
-        body: {'email': email, 'password': password});
+        body: {'email': email, 'password': password}) as (String?, User?);
   }
 
   Future<(String?, User?)> signUp({
@@ -26,6 +26,6 @@ class AuthService {
       'name': name,
       'phone': phone,
       'userName': userName
-    });
+    }) as (String?, User?);
   }
 }
