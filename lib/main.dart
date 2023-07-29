@@ -12,8 +12,6 @@ import 'package:travel_planner_pro/providers/destination_provider.dart';
 import 'package:travel_planner_pro/providers/map_provider.dart';
 import 'package:travel_planner_pro/router.dart';
 
-import 'models/user_model.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Prefs.init();
@@ -40,11 +38,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (Prefs.getString('token') != null) {
-      context
-          .read<AuthProvider>()
-          .setUser(User(token: Prefs.getString('token')!));
-    }
     html.ScriptElement script = html.ScriptElement()
       ..src =
           'https://maps.googleapis.com/maps/api/js?key=${Env.key}&libraries=libraries=drawing,visualization,places';

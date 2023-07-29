@@ -6,11 +6,9 @@ import 'package:travel_planner_pro/prefs.dart';
 import '../models/user_model.dart';
 
 class AuthProvider extends ChangeNotifier {
-  User? user;
   AuthService authService = AuthService();
 
   void clearUser(BuildContext context) {
-    user = null;
     Prefs.remove('token');
     Navigator.pop(context);
     notifyListeners();
@@ -22,8 +20,7 @@ class AuthProvider extends ChangeNotifier {
       required BuildContext context}) async {
     (String?, User?) data = await authService.login(email.trim(), password);
     if (data.$1 == null) {
-      user = data.$2;
-      Prefs.setString('token', user!.token);
+      Prefs.setString('token', data.$2!.token);
       notifyListeners();
       if (context.mounted) {
         Navigator.pushReplacementNamed(
@@ -54,7 +51,8 @@ class AuthProvider extends ChangeNotifier {
       name: name,
     );
     if (data.$1 == null) {
-      setUser(data.$2!);
+      Prefs.setString('token', data.$2!.token);
+
       notifyListeners();
       if (context.mounted) {
         Navigator.pushReplacementNamed(context, HomeScreen.routeName);
@@ -68,10 +66,5 @@ class AuthProvider extends ChangeNotifier {
         );
       }
     }
-  }
-
-  void setUser(User user) {
-    this.user = user;
-    notifyListeners();
   }
 }

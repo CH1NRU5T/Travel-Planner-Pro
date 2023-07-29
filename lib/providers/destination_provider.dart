@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:travel_planner_pro/env/env.dart';
 import 'package:travel_planner_pro/features/api/api.dart';
 import 'package:travel_planner_pro/models/destination_model.dart';
-import 'package:travel_planner_pro/providers/auth_provider.dart';
+
+import '../prefs.dart';
 
 class DestinationProvider extends ChangeNotifier {
   List<Destination>? destinationList;
@@ -21,9 +21,7 @@ class DestinationProvider extends ChangeNotifier {
   void fetchDestinationList(BuildContext context) async {
     (String?, Map<String, dynamic>?) response = await Api.getRequest(
       url: '${Env.baseUrl}/api/v1/get-all-destinations',
-      headers: {
-        'Authorization': 'Bearer ${context.read<AuthProvider>().user!.token}'
-      },
+      headers: {'Authorization': 'Bearer ${Prefs.getString('token')}'},
     ) as (String?, Map<String, dynamic>?);
     if (response.$1 == null) {
       List<dynamic> list =
@@ -38,9 +36,7 @@ class DestinationProvider extends ChangeNotifier {
   void fetchSavedDestinationList(BuildContext context) async {
     (String?, Map<String, dynamic>?) response = await Api.getRequest(
       url: '${Env.baseUrl}/api/v1/get-saved-destinations',
-      headers: {
-        'Authorization': 'Bearer ${context.read<AuthProvider>().user!.token}'
-      },
+      headers: {'Authorization': 'Bearer ${Prefs.getString('token')}'},
     ) as (String?, Map<String, dynamic>?);
     if (response.$1 == null) {
       List<dynamic> list = List.from(
