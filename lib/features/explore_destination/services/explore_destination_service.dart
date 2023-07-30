@@ -96,4 +96,31 @@ class ExploreDestinationService {
       return (null, particularDestination);
     }
   }
+
+  Future<(String, bool)> addReview(
+      {required String review,
+      required int rating,
+      required String destination_id}) async {
+    (String?, Map<String, dynamic>?) response = await Api.postRequest(
+      url: '${Env.baseUrl}/api/v1/add-review',
+      headers: {
+        'Authorization': 'Bearer ${Prefs.getString('token')}',
+        'Content-Type': 'application/json'
+      },
+      body: {
+        'destination_id': destination_id,
+        'review': review,
+        'rating': rating
+      },
+    ) as (String?, Map<String, dynamic>?);
+    if (response.$1 == null) {
+      if (response.$2!['message'] == null) {
+        return (response.$2!['error'] as String, false);
+      } else {
+        return (response.$2!['message'] as String, true);
+      }
+    } else {
+      return (response.$1!, false);
+    }
+  }
 }

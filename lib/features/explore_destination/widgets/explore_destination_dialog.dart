@@ -2,13 +2,29 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:travel_planner_pro/constants/extensions/extensions.dart';
+import 'package:travel_planner_pro/features/explore_destination/services/explore_destination_service.dart';
 import 'package:travel_planner_pro/models/particular_destination_model.dart';
 import 'package:travel_planner_pro/models/review_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ExploreDestinationDialog extends StatelessWidget {
+class ExploreDestinationDialog extends StatefulWidget {
   const ExploreDestinationDialog({super.key, required this.destination});
   final ParticularDestination destination;
+
+  @override
+  State<ExploreDestinationDialog> createState() =>
+      _ExploreDestinationDialogState();
+}
+
+class _ExploreDestinationDialogState extends State<ExploreDestinationDialog> {
+  late List<Review> reviews;
+  ExploreDestinationService service = ExploreDestinationService();
+
+  @override
+  void initState() {
+    super.initState();
+    reviews = widget.destination.reviews;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,22 +41,22 @@ class ExploreDestinationDialog extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  destination.destination!.destinationName,
+                  widget.destination.destination!.destinationName,
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 25),
                 ),
                 Row(
                   children: [
                     Text(
-                      '${destination.currentTemperature}°C',
+                      '${widget.destination.currentTemperature}°C',
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                     10.width,
-                    Image.network(destination.weatherIcon),
+                    Image.network(widget.destination.weatherIcon),
                     10.width,
                     Text(
-                      destination.currentWeather,
+                      widget.destination.currentWeather,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 20),
                     ),
@@ -52,12 +68,12 @@ class ExploreDestinationDialog extends StatelessWidget {
             SizedBox(
               height: 200,
               child: CarouselSlider.builder(
-                  itemCount: destination.destination!.images.length,
+                  itemCount: widget.destination.destination!.images.length,
                   itemBuilder: (context, index, realIndex) {
                     return Container(
                       margin: const EdgeInsets.symmetric(horizontal: 5),
                       child: Image.network(
-                        destination.destination!.images[index],
+                        widget.destination.destination!.images[index],
                         fit: BoxFit.cover,
                       ),
                     );
@@ -72,7 +88,7 @@ class ExploreDestinationDialog extends StatelessWidget {
             10.height,
             ListTile(
               leading: Text(
-                destination.destination!.description,
+                widget.destination.destination!.description,
                 style:
                     const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
@@ -80,7 +96,7 @@ class ExploreDestinationDialog extends StatelessWidget {
             10.height,
             ListTile(
               leading: Text(
-                destination.destination!.cityName,
+                widget.destination.destination!.cityName,
                 style:
                     const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
@@ -97,7 +113,7 @@ class ExploreDestinationDialog extends StatelessWidget {
                 onPressed: () async {
                   await launchUrl(
                       Uri.parse(
-                          'https://maps.google.com/maps?q=${destination.destination!.latitude},${destination.destination!.longitude}'),
+                          'https://maps.google.com/maps?q=${widget.destination.destination!.latitude},${widget.destination.destination!.longitude}'),
                       mode: LaunchMode.externalApplication);
                 },
               ),
@@ -105,12 +121,12 @@ class ExploreDestinationDialog extends StatelessWidget {
             10.height,
             ListTile(
               leading: Text(
-                destination.destination!.avgTravelExpenses,
+                widget.destination.destination!.avgTravelExpenses,
                 style:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               trailing: Text(
-                destination.destination!.category,
+                widget.destination.destination!.category,
                 style:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
@@ -118,25 +134,81 @@ class ExploreDestinationDialog extends StatelessWidget {
             10.height,
             TextButton.icon(
               onPressed: () async {
+                TextEditingController reviewController =
+                    TextEditingController();
+                int inputRating = 0;
                 await showDialog(
                   context: context,
                   builder: (context) {
                     return AlertDialog(
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text('Cancel'),
-                        ),
-                        TextButton(
-                          onPressed: () async {
-                            Navigator.pop(context);
-                          },
-                          child: const Text('Submit'),
-                        ),
-                      ],
-                    );
+                        title: const Text('Add Review'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () async {
+                              (String, bool) response = await service.addReview(
+                                  review: reviewController.text,
+                                  rating: inputRating,
+                                  destination_id:
+                                      widget.destination.destination!.id);
+                              if (context.mounted) {
+                                context.showToast(msg: response.$1);
+                                if (response.$2) {
+                                  reviews.insert(
+                                      0,
+                                      Review(
+                                        destination_id:
+                                            widget.destination.destination!.id,
+                                        reviewerName: 'You',
+                                        rating: inputRating.toDouble(),
+                                        review: reviewController.text,
+                                        date: DateTime.now(),
+                                      ));
+                                }
+                                setState(() {});
+                                Navigator.pop(context);
+                              }
+                            },
+                            child: const Text('Submit'),
+                          ),
+                        ],
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            TextFormField(
+                              controller: reviewController,
+                              decoration: const InputDecoration(
+                                labelText: 'Review',
+                                border: OutlineInputBorder(),
+                              ),
+                            ),
+                            10.height,
+                            RatingBar.builder(
+                              initialRating: 0,
+                              minRating: 0,
+                              direction: Axis.horizontal,
+                              allowHalfRating: false,
+                              itemCount: 5,
+                              itemSize: 20,
+                              itemPadding:
+                                  const EdgeInsets.symmetric(horizontal: 4.0),
+                              itemBuilder: (context, _) => const Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                              ),
+                              onRatingUpdate: (rating) {
+                                setState(() {
+                                  inputRating = rating.toInt();
+                                });
+                              },
+                            ),
+                          ],
+                        ));
                   },
                 );
               },
@@ -146,7 +218,7 @@ class ExploreDestinationDialog extends StatelessWidget {
               label: const Text('Add Review'),
             ),
             10.height,
-            destination.reviews.isEmpty
+            widget.destination.reviews.isEmpty
                 ? const ListTile(
                     title: Text(
                       'No Reviews',
@@ -156,9 +228,9 @@ class ExploreDestinationDialog extends StatelessWidget {
                 : ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: destination.reviews.length,
+                    itemCount: widget.destination.reviews.length,
                     itemBuilder: (context, index) {
-                      Review review = destination.reviews[index];
+                      Review review = widget.destination.reviews[index];
                       return ListTile(
                         title: Row(
                           children: [

@@ -10,10 +10,10 @@ class Review {
   String review;
   DateTime date;
   Review({
-    required this.id,
+    this.id = '',
     required this.destination_id,
     required this.reviewerName,
-    required this.userId,
+    this.userId = '',
     required this.rating,
     required this.review,
     required this.date,
