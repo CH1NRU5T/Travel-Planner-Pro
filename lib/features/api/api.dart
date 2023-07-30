@@ -2,8 +2,6 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import '../../models/user_model.dart';
-
 class Api {
   static Future<(String?, dynamic)> postRequest(
       {required String url,
@@ -14,7 +12,7 @@ class Api {
       response = await http.post(Uri.parse(url),
           headers: headers, body: jsonEncode(body));
       if (response.statusCode == 200) {
-        return (null, User.fromJson(response.body));
+        return (null, jsonDecode(response.body));
       } else {
         return (jsonDecode(response.body)['error'] as String, null);
       }

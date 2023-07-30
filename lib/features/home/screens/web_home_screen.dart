@@ -3,10 +3,12 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:travel_planner_pro/features/saved_destination/screens/saved_destination_screen.dart';
 import 'package:travel_planner_pro/providers/auth_provider.dart';
-import 'package:travel_planner_pro/providers/destination_provider.dart';
 
 import '../../../constants/colors/custom_colors.dart';
+import '../../../models/destination_model.dart';
+import '../../../providers/destination_provider.dart';
 import '../../explore_destination/screens/explore_destination_screen.dart';
+import '../../explore_destination/services/explore_destination_service.dart';
 import '../../explore_maps/screens/explore_maps_screen.dart';
 import '../../itinerary/screens/itinerary_screen.dart';
 
@@ -18,6 +20,9 @@ class WebHomeScreen extends StatefulWidget {
 }
 
 class _WebHomeScreenState extends State<WebHomeScreen> {
+  late DestinationProvider destinationProvider;
+  ExploreDestinationService exploreDestinationService =
+      ExploreDestinationService();
   int selectedIndex = 0;
 
   void setSelectedIndex(int index) {
@@ -27,14 +32,33 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    destinationProvider = context.watch<DestinationProvider>();
+  }
+
+  @override
   void initState() {
     super.initState();
     fetchDestinationList();
   }
 
-  void fetchDestinationList() {
-    context.read<DestinationProvider>().fetchDestinationList(context);
-    context.read<DestinationProvider>().fetchSavedDestinationList(context);
+  void fetchDestinationList() async {
+    await exploreDestinationService.fetchDestinationList(context);
+    if (context.mounted) {
+      await exploreDestinationService.fetchSavedDestinationList(context);
+      if (context.mounted) {
+        await exploreDestinationService.getKeywords(context);
+      }
+    }
+    for (Destination saved in destinationProvider.savedDestinationList!) {
+      for (Destination d in destinationProvider.destinationList!) {
+        if (saved.id == d.id) {
+          d.isSaved = true;
+          break;
+        }
+      }
+    }
   }
 
   List<Widget> screens = [

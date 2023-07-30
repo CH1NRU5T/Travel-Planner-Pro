@@ -25,26 +25,47 @@ class _SavedDestinationScreenState extends State<SavedDestinationScreen> {
   Widget build(BuildContext context) {
     return _destinationProvider.savedDestinationList == null
         ? const Loader()
-        : Padding(
-            padding: const EdgeInsets.all(20),
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Wrap(
-                direction: Axis.horizontal,
-                alignment: WrapAlignment.start,
-                spacing: 20,
-                runSpacing: 1,
-                children: _destinationProvider.savedDestinationList!.map(
-                  (e) {
-                    return ExploreDestinationCard(
-                      src: e.images.first,
-                      name: e.destinationName,
-                      avgTravelExpenses: e.avgTravelExpenses,
-                    );
-                  },
-                ).toList(),
-              ),
-            ),
+        : Consumer<DestinationProvider>(
+            builder: (context, value, child) {
+              return Padding(
+                padding: const EdgeInsets.all(20),
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Wrap(
+                    direction: Axis.horizontal,
+                    alignment: WrapAlignment.start,
+                    spacing: 20,
+                    runSpacing: 1,
+                    children: value.savedDestinationList!.map(
+                      (e) {
+                        return ExploreDestinationCard(
+                          destination: e,
+                        );
+                      },
+                    ).toList(),
+                  ),
+                ),
+              );
+            },
+            // child: Padding(
+            //     padding: const EdgeInsets.all(20),
+            //     child: SingleChildScrollView(
+            //       physics: const BouncingScrollPhysics(),
+            //       child: Wrap(
+            //         direction: Axis.horizontal,
+            //         alignment: WrapAlignment.start,
+            //         spacing: 20,
+            //         runSpacing: 1,
+            //         children: _destinationProvider.savedDestinationList!.map(
+            //           (e) {
+            //             return ExploreDestinationCard(
+            //               destination: e,
+            //             );
+            //           },
+            //         ).toList(),
+            //       ),
+            //     ),
+            //   ),
           );
   }
 }

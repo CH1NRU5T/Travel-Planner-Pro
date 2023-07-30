@@ -9,6 +9,7 @@ import 'package:travel_planner_pro/features/landing_page/screens/landing_screen.
 import 'package:travel_planner_pro/prefs.dart';
 import 'package:travel_planner_pro/providers/auth_provider.dart';
 import 'package:travel_planner_pro/providers/destination_provider.dart';
+import 'package:travel_planner_pro/providers/keywords_provider.dart';
 import 'package:travel_planner_pro/providers/map_provider.dart';
 import 'package:travel_planner_pro/router.dart';
 
@@ -27,6 +28,9 @@ void main() async {
         ChangeNotifierProvider(
           create: (_) => DestinationProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => KeywordsProvider(),
+        ),
       ],
       child: const MyApp(),
     ),
@@ -41,7 +45,7 @@ class MyApp extends StatelessWidget {
     html.ScriptElement script = html.ScriptElement()
       ..src =
           'https://maps.googleapis.com/maps/api/js?key=${Env.key}&libraries=libraries=drawing,visualization,places';
-    html.querySelector('#customScript')!.replaceWith(script);
+    html.querySelector('#customScript')?.replaceWith(script);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Travel Planner Pro',

@@ -4,11 +4,11 @@ import 'package:travel_planner_pro/features/api/api.dart';
 import '../../../models/user_model.dart';
 
 class AuthService {
-  Future<(String?, User?)> login(String email, String password) async {
+  Future<(String?, dynamic)> login(String email, String password) async {
     return await Api.postRequest(
         url: '${Env.baseUrl}/api/v1/signin',
         headers: {'Content-Type': 'application/json'},
-        body: {'email': email, 'password': password}) as (String?, User?);
+        body: {'email': email, 'password': password});
   }
 
   Future<(String?, User?)> signUp({

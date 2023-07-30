@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:travel_planner_pro/constants/extensions/extensions.dart';
+import 'package:travel_planner_pro/features/explore_destination/services/explore_destination_service.dart';
 
 import '../../../constants/colors/custom_colors.dart';
 import '../../../customWidgets/loader.dart';
 import '../../../providers/auth_provider.dart';
-import '../../../providers/destination_provider.dart';
 import '../../explore_destination/screens/explore_destination_screen.dart';
 import '../../explore_maps/screens/explore_maps_screen.dart';
 import '../../itinerary/screens/itinerary_screen.dart';
@@ -18,6 +18,8 @@ class MobileHomeScreen extends StatefulWidget {
 }
 
 class _MobileHomeScreenState extends State<MobileHomeScreen> {
+  ExploreDestinationService exploreDestinationService =
+      ExploreDestinationService();
   void setSelectedIndex(int index) {
     setState(() {
       selectedIndex = index;
@@ -30,9 +32,11 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
     fetchDestinationList();
   }
 
-  void fetchDestinationList() {
-    context.read<DestinationProvider>().fetchDestinationList(context);
-    context.read<DestinationProvider>().fetchSavedDestinationList(context);
+  void fetchDestinationList() async {
+    await exploreDestinationService.fetchDestinationList(context);
+    if (context.mounted) {
+      await exploreDestinationService.fetchSavedDestinationList(context);
+    }
   }
 
   int selectedIndex = 1;
