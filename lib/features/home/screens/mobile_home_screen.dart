@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:travel_planner_pro/constants/extensions/extensions.dart';
 import 'package:travel_planner_pro/features/explore_destination/services/explore_destination_service.dart';
+import 'package:travel_planner_pro/features/saved_destination/screens/saved_destination_screen.dart';
 
 import '../../../constants/colors/custom_colors.dart';
 import '../../../customWidgets/loader.dart';
@@ -47,6 +48,7 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
     ),
     const ExploreDestinationScreen(),
     const ExploreMapsScreen(),
+    const SavedDestinationScreen(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -85,6 +87,7 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
               ),
               onTap: () {
                 setSelectedIndex(0);
+                Navigator.pop(context);
               },
             ),
             ListTile(
@@ -99,6 +102,7 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
               ),
               onTap: () {
                 setSelectedIndex(1);
+                Navigator.pop(context);
               },
             ),
             ListTile(
@@ -113,10 +117,11 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
               ),
               onTap: () {
                 setSelectedIndex(2);
+                Navigator.pop(context);
               },
             ),
             ListTile(
-              selected: selectedIndex == 2,
+              selected: selectedIndex == 3,
               title: const Text(
                 'Saved Destinations',
                 style: TextStyle(color: Colors.white, fontSize: 20),
@@ -126,11 +131,12 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
                 color: Colors.white,
               ),
               onTap: () {
-                setSelectedIndex(2);
+                setSelectedIndex(3);
+                Navigator.pop(context);
               },
             ),
             ListTile(
-              selected: selectedIndex == 2,
+              selected: selectedIndex == 4,
               title: const Text(
                 'Saved Itineraries',
                 style: TextStyle(color: Colors.white, fontSize: 20),
@@ -140,7 +146,8 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
                 color: Colors.white,
               ),
               onTap: () {
-                setSelectedIndex(2);
+                setSelectedIndex(4);
+                Navigator.pop(context);
               },
             ),
           ],

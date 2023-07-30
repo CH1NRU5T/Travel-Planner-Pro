@@ -53,20 +53,26 @@ class _ItineraryListScreenState extends State<ItineraryListScreen> {
                 child: Loader(),
               )
             : Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Wrap(
-                  children: value.itineraryList!.map((e) {
-                    return ItineraryListCard(
-                      travelMode: e.travelMode,
-                      id: e.id,
-                      details: e.items,
-                      planName: e.planName,
-                      destination: e.destination,
-                      startDate: e.travelStartDate,
-                      endDate: e.travelEndDate,
-                      cost: e.estimatedCost,
-                    );
-                  }).toList(),
+                padding: const EdgeInsets.all(12),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  physics: const BouncingScrollPhysics(),
+                  child: Wrap(
+                    verticalDirection: VerticalDirection.down,
+                    spacing: 10,
+                    children: value.itineraryList!.map((e) {
+                      return ItineraryListCard(
+                        travelMode: e.travelMode,
+                        id: e.id,
+                        details: e.items,
+                        planName: e.planName,
+                        destination: e.destination,
+                        startDate: e.travelStartDate,
+                        endDate: e.travelEndDate,
+                        cost: e.estimatedCost,
+                      );
+                    }).toList(),
+                  ),
                 ),
               );
       },

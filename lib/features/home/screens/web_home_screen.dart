@@ -192,12 +192,13 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
                     ),
                     const Expanded(child: SizedBox()),
                     ListTile(
+                      hoverColor: Colors.red,
                       title: const Text(
                         'Logout',
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                       trailing: const Icon(
-                        Icons.person,
+                        Icons.logout_rounded,
                         color: Colors.white,
                       ),
                       onTap: () {
