@@ -47,6 +47,9 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
     await exploreDestinationService.fetchDestinationList(context);
     if (context.mounted) {
       await exploreDestinationService.fetchSavedDestinationList(context);
+      if (context.mounted) {
+        await exploreDestinationService.getKeywords(context);
+      }
     }
     for (Destination saved in destinationProvider.savedDestinationList!) {
       for (Destination d in destinationProvider.destinationList!) {
