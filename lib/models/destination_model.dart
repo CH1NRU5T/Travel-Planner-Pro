@@ -6,6 +6,7 @@ class Destination {
   String cityName;
   String latitude;
   String longitude;
+  bool isSaved;
   List<dynamic> landmarks;
   String state;
   String description;
@@ -14,6 +15,7 @@ class Destination {
   List<dynamic> attractions;
   String category;
   Destination({
+    this.isSaved = false,
     required this.id,
     required this.destinationName,
     required this.cityName,
@@ -31,6 +33,7 @@ class Destination {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
+      'isSaved': isSaved,
       'destinationName': destinationName,
       'cityName': cityName,
       'latitude': latitude,
@@ -69,6 +72,6 @@ class Destination {
 
   @override
   String toString() {
-    return 'Destination(destinationName: $destinationName, id:$id, cityName: $cityName, latitude: $latitude, longitude: $longitude, landmarks: $landmarks, state: $state, description: $description, images: $images, avgTravelExpenses: $avgTravelExpenses, attractions: $attractions, category: $category)';
+    return 'Destination(destinationName: $destinationName, id:$id, cityName: $cityName, latitude: $latitude, longitude: $longitude, landmarks: $landmarks, state: $state, description: $description, images: $images, avgTravelExpenses: $avgTravelExpenses, attractions: $attractions, category: $category, isSaved: $isSaved)';
   }
 }

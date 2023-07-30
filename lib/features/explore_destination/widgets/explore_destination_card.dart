@@ -9,11 +9,24 @@ import 'package:travel_planner_pro/providers/destination_provider.dart';
 
 import '../../../models/destination_model.dart';
 
-class ExploreDestinationCard extends StatelessWidget {
-  ExploreDestinationCard({super.key, required this.destination});
+class ExploreDestinationCard extends StatefulWidget {
+  const ExploreDestinationCard({super.key, required this.destination});
+  final Destination destination;
+
+  @override
+  State<ExploreDestinationCard> createState() => _ExploreDestinationCardState();
+}
+
+class _ExploreDestinationCardState extends State<ExploreDestinationCard> {
+  late DestinationProvider destinationProvider;
   final ExploreDestinationService exploreDestinationService =
       ExploreDestinationService();
-  final Destination destination;
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    destinationProvider = context.watch<DestinationProvider>();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,7 +45,7 @@ class ExploreDestinationCard extends StatelessWidget {
               (String?, ParticularDestination?) record =
                   await exploreDestinationService.fetchParticularDestination(
                       context,
-                      destination.id,
+                      widget.destination.id,
                       context
                           .read<DestinationProvider>()
                           .particularDestinationList);
@@ -59,30 +72,70 @@ class ExploreDestinationCard extends StatelessWidget {
                 color: Colors.red,
                 borderRadius: BorderRadius.circular(20),
                 image: DecorationImage(
-                  image: NetworkImage(destination.images.first),
+                  image: NetworkImage(widget.destination.images.first),
                   fit: BoxFit.cover,
                 ),
               ),
             ),
           ),
           10.height,
-          FittedBox(
-            child: Text(
-              destination.destinationName,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
+          SizedBox(
+            width: 250,
+            height: 80,
+            child: ListTile(
+              trailing: IconButton(
+                onPressed: () {
+                  exploreDestinationService.toggleSaved(widget.destination.id);
+                  if (!widget.destination.isSaved) {
+                    destinationProvider.savedDestinationList!
+                        .add(widget.destination);
+                  } else {
+                    destinationProvider.savedDestinationList!.removeWhere(
+                        (element) => element.id == widget.destination.id);
+                  }
+                  setState(() {
+                    widget.destination.isSaved = !widget.destination.isSaved;
+                  });
+                },
+                icon: Icon(
+                  widget.destination.isSaved
+                      ? Icons.favorite
+                      : Icons.favorite_border,
+                  color: Colors.red,
+                ),
+              ),
+              title: Text(
+                widget.destination.destinationName,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: Text(
+                widget.destination.avgTravelExpenses,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
-          10.height,
-          FittedBox(
-            child: Text(
-              destination.avgTravelExpenses,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
+
+          // FittedBox(
+          //   child: Text(
+          //     destination.destinationName,
+          //     style: const TextStyle(
+          //       fontWeight: FontWeight.bold,
+          //     ),
+          //   ),
+          // ),
+          // 10.height,
+          // FittedBox(
+          //   child: Text(
+          //     destination.avgTravelExpenses,
+          //     style: const TextStyle(
+          //       fontWeight: FontWeight.bold,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

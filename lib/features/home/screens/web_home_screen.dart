@@ -5,6 +5,8 @@ import 'package:travel_planner_pro/features/saved_destination/screens/saved_dest
 import 'package:travel_planner_pro/providers/auth_provider.dart';
 
 import '../../../constants/colors/custom_colors.dart';
+import '../../../models/destination_model.dart';
+import '../../../providers/destination_provider.dart';
 import '../../explore_destination/screens/explore_destination_screen.dart';
 import '../../explore_destination/services/explore_destination_service.dart';
 import '../../explore_maps/screens/explore_maps_screen.dart';
@@ -18,6 +20,7 @@ class WebHomeScreen extends StatefulWidget {
 }
 
 class _WebHomeScreenState extends State<WebHomeScreen> {
+  late DestinationProvider destinationProvider;
   ExploreDestinationService exploreDestinationService =
       ExploreDestinationService();
   int selectedIndex = 0;
@@ -26,6 +29,12 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
     setState(() {
       selectedIndex = index;
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    destinationProvider = context.watch<DestinationProvider>();
   }
 
   @override
@@ -38,6 +47,14 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
     await exploreDestinationService.fetchDestinationList(context);
     if (context.mounted) {
       await exploreDestinationService.fetchSavedDestinationList(context);
+    }
+    for (Destination saved in destinationProvider.savedDestinationList!) {
+      for (Destination d in destinationProvider.destinationList!) {
+        if (saved.id == d.id) {
+          d.isSaved = true;
+          break;
+        }
+      }
     }
   }
 

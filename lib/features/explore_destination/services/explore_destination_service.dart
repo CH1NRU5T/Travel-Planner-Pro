@@ -21,6 +21,9 @@ class ExploreDestinationService {
           response.$2!['destinations'].map((e) => Destination.fromMap(e)));
       List<Destination> destinationList =
           list.map((e) => e as Destination).toList();
+      for (Destination d in destinationList) {
+        d.isSaved = true;
+      }
       if (context.mounted) {
         context
             .read<DestinationProvider>()
@@ -111,6 +114,28 @@ class ExploreDestinationService {
         'destination_id': destination_id,
         'review': review,
         'rating': rating
+      },
+    ) as (String?, Map<String, dynamic>?);
+    if (response.$1 == null) {
+      if (response.$2!['message'] == null) {
+        return (response.$2!['error'] as String, false);
+      } else {
+        return (response.$2!['message'] as String, true);
+      }
+    } else {
+      return (response.$1!, false);
+    }
+  }
+
+  Future<(String, bool)> toggleSaved(String destinationId) async {
+    (String?, Map<String, dynamic>?) response = await Api.postRequest(
+      url: '${Env.baseUrl}/api/v1/save-destination-toggle',
+      headers: {
+        'Authorization': 'Bearer ${Prefs.getString('token')}',
+        'Content-Type': 'application/json'
+      },
+      body: {
+        'destinationId': destinationId,
       },
     ) as (String?, Map<String, dynamic>?);
     if (response.$1 == null) {
