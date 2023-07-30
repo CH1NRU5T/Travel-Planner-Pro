@@ -29,6 +29,7 @@ class Api {
       if (response.statusCode == 200) {
         return (null, jsonDecode(response.body));
       } else {
+        print(jsonDecode(response.body));
         return (jsonDecode(response.body)['error'] as String, null);
       }
     } catch (e) {

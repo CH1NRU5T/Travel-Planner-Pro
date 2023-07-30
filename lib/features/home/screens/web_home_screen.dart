@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:travel_planner_pro/features/home/widgets/add_itinerary_dialog.dart';
 import 'package:travel_planner_pro/features/itinerary_list/screens/itinerary_list_screen.dart';
 import 'package:travel_planner_pro/features/saved_destination/screens/saved_destination_screen.dart';
+import 'package:travel_planner_pro/features/saved_itinerary/screens/saved_itinerary_screen.dart';
 import 'package:travel_planner_pro/providers/auth_provider.dart';
 
 import '../../../constants/colors/custom_colors.dart';
@@ -68,6 +69,7 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
     const ExploreDestinationScreen(),
     const ExploreMapsScreen(),
     const SavedDestinationScreen(),
+    const SavedItineraryScreen()
   ];
   @override
   Widget build(BuildContext context) {

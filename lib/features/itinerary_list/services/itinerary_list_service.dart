@@ -20,7 +20,6 @@ class ItineraryListService {
       List<Itinerary> itineraryList = (response.$2!['data'] as List<dynamic>)
           .map((e) => Itinerary.fromMap(e as Map<String, dynamic>))
           .toList();
-      print(itineraryList);
       return (null, itineraryList);
     } else {
       if (context.mounted) {
@@ -49,9 +48,7 @@ class ItineraryListService {
         },
         body: body) as (String?, Map<String, dynamic>?);
     if (response.$1 == null) {
-      print(response.$2);
     } else {
-      print(response.$1);
       // return (response.$1, null);
     }
 

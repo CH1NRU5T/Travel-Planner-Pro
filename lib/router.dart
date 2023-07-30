@@ -9,7 +9,6 @@ import 'features/landing_page/screens/landing_screen.dart';
 generateRoute(RouteSettings settings) {
   if (settings.name != null) {
     var uriData = Uri.parse(settings.name!);
-    print(uriData.path);
     switch (uriData.path) {
       case AuthScreen.routeName:
         if (Prefs.getString('token') != null) {
