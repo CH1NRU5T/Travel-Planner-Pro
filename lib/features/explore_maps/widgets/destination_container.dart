@@ -42,9 +42,19 @@ class DestinationContainer extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FittedBox(child: Text(placeName)),
+                  FittedBox(
+                      child: Text(
+                    placeName,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 21),
+                  )),
                   const Divider(),
-                  FittedBox(child: Text(averageTravelExpenses)),
+                  FittedBox(
+                      child: Text(
+                    averageTravelExpenses,
+                    style: const TextStyle(
+                        fontSize: 17, fontWeight: FontWeight.w600),
+                  )),
                 ],
               ),
             ),
