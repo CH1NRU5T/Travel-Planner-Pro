@@ -6,7 +6,9 @@ import 'package:travel_planner_pro/features/saved_destination/screens/saved_dest
 
 import '../../../constants/colors/custom_colors.dart';
 import '../../../customWidgets/loader.dart';
+import '../../../models/destination_model.dart';
 import '../../../providers/auth_provider.dart';
+import '../../../providers/destination_provider.dart';
 import '../../explore_destination/screens/explore_destination_screen.dart';
 import '../../explore_maps/screens/explore_maps_screen.dart';
 import '../../itinerary_list/screens/itinerary_list_screen.dart';
@@ -21,6 +23,7 @@ class MobileHomeScreen extends StatefulWidget {
 }
 
 class _MobileHomeScreenState extends State<MobileHomeScreen> {
+  DestinationProvider destinationProvider = DestinationProvider();
   ExploreDestinationService exploreDestinationService =
       ExploreDestinationService();
   void setSelectedIndex(int index) {
@@ -35,10 +38,27 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
     fetchDestinationList();
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    destinationProvider = context.watch<DestinationProvider>();
+  }
+
   void fetchDestinationList() async {
     await exploreDestinationService.fetchDestinationList(context);
     if (context.mounted) {
       await exploreDestinationService.fetchSavedDestinationList(context);
+      if (context.mounted) {
+        await exploreDestinationService.getKeywords(context);
+      }
+    }
+    for (Destination saved in destinationProvider.savedDestinationList!) {
+      for (Destination d in destinationProvider.destinationList!) {
+        if (saved.id == d.id) {
+          d.isSaved = true;
+          break;
+        }
+      }
     }
   }
 
@@ -91,6 +111,7 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
             ),
             ListTile(
               selected: selectedIndex == 0,
+              selectedTileColor: CustomColors.darkerBlue,
               title: const Text(
                 'Itinerary',
                 style: TextStyle(color: Colors.white, fontSize: 20),
@@ -106,6 +127,7 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
             ),
             ListTile(
               selected: selectedIndex == 1,
+              selectedTileColor: CustomColors.darkerBlue,
               title: const Text(
                 'Explore Destination',
                 style: TextStyle(color: Colors.white, fontSize: 20),
@@ -121,6 +143,7 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
             ),
             ListTile(
               selected: selectedIndex == 2,
+              selectedTileColor: CustomColors.darkerBlue,
               title: const Text(
                 'Explore Maps',
                 style: TextStyle(color: Colors.white, fontSize: 20),
@@ -136,6 +159,7 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
             ),
             ListTile(
               selected: selectedIndex == 3,
+              selectedTileColor: CustomColors.darkerBlue,
               title: const Text(
                 'Saved Destinations',
                 style: TextStyle(color: Colors.white, fontSize: 20),
@@ -151,6 +175,7 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
             ),
             ListTile(
               selected: selectedIndex == 4,
+              selectedTileColor: CustomColors.darkerBlue,
               title: const Text(
                 'Saved Itineraries',
                 style: TextStyle(color: Colors.white, fontSize: 20),
