@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 
-class ItineraryScreen extends StatelessWidget {
-  const ItineraryScreen({super.key});
+class ItineraryScreen extends StatefulWidget {
+  const ItineraryScreen({super.key, required this.itid});
+  static const routeName = '/itinerary';
+  final String itid;
+  @override
+  State<ItineraryScreen> createState() => _ItineraryScreenState();
+}
 
+class _ItineraryScreenState extends State<ItineraryScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Itinerary Screen'),
+    return Scaffold(
+      body: Center(
+        child: Text(widget.itid),
+      ),
     );
   }
 }
