@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:travel_planner_pro/constants/extensions/extensions.dart';
+import 'package:travel_planner_pro/features/itinerary_list/services/itinerary_list_service.dart';
 import 'package:travel_planner_pro/models/itinerary_model.dart';
 
 import '../../../customWidgets/custom_text_form_field.dart';
@@ -14,6 +15,7 @@ class AddItineraryDialog extends StatefulWidget {
 }
 
 class _AddItineraryDialogState extends State<AddItineraryDialog> {
+  ItineraryListService itineraryListService = ItineraryListService();
   void onStartDateChanged(DateTime dateTime) {
     setState(() {
       startDate = dateTime;
@@ -211,8 +213,18 @@ class _AddItineraryDialogState extends State<AddItineraryDialog> {
         ),
         TextButton(
           onPressed: () {
+            Itinerary itinerary = Itinerary(
+              id: '',
+              planName: planNameController.text,
+              destination: destinationController.text,
+              travelMode: travelModeController.text,
+              estimatedCost: int.parse(costController.text),
+              travelStartDate: startDate!,
+              travelEndDate: endDate!,
+              items: details,
+            );
+            itineraryListService.addItinerary(context, itinerary.toMap());
             Navigator.pop(context);
-            Navigator.pushNamed(context, '/add_itinerary_screen');
           },
           child: const Text('Add'),
         ),

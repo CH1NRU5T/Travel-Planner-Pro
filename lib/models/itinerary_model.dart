@@ -24,10 +24,9 @@ class Itinerary {
     return <String, dynamic>{
       'planName': planName,
       'destination': destination,
-      'travelStartDate': travelStartDate.millisecondsSinceEpoch,
-      'travelEndDate': travelEndDate.millisecondsSinceEpoch,
+      'travelStartDate': travelStartDate.toIso8601String(),
+      'travelEndDate': travelEndDate.toIso8601String(),
       'travelMode': travelMode,
-      'id': id,
       'details': items.map((e) => e.toMap()).toList(),
       'estimatedCost': estimatedCost,
     };
