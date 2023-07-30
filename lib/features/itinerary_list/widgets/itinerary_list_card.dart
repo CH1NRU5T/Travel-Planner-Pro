@@ -44,8 +44,8 @@ class ItineraryListCard extends StatelessWidget {
       },
       child: Card(
         child: SizedBox(
-          width: MediaQuery.sizeOf(context).width * 0.25,
-          height: MediaQuery.sizeOf(context).height * 0.4,
+          width: MediaQuery.sizeOf(context).width * 0.9,
+          height: MediaQuery.sizeOf(context).height * 0.7,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(

@@ -9,7 +9,8 @@ import '../../../customWidgets/loader.dart';
 import '../../../providers/auth_provider.dart';
 import '../../explore_destination/screens/explore_destination_screen.dart';
 import '../../explore_maps/screens/explore_maps_screen.dart';
-import '../../itinerary/screens/itinerary_screen.dart';
+import '../../itinerary_list/screens/itinerary_list_screen.dart';
+import '../../saved_itinerary/screens/saved_itinerary_screen.dart';
 
 class MobileHomeScreen extends StatefulWidget {
   const MobileHomeScreen({super.key});
@@ -40,15 +41,14 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
     }
   }
 
-  int selectedIndex = 1;
+  int selectedIndex = 0;
 
   List<Widget> screens = [
-    const ItineraryScreen(
-      itid: '1',
-    ),
+    const ItineraryListScreen(),
     const ExploreDestinationScreen(),
     const ExploreMapsScreen(),
     const SavedDestinationScreen(),
+    const SavedItineraryScreen()
   ];
   @override
   Widget build(BuildContext context) {
