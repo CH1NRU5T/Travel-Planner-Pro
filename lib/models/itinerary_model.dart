@@ -34,14 +34,16 @@ class Itinerary {
 
   factory Itinerary.fromMap(Map<String, dynamic> map) {
     return Itinerary(
-      id: map['id'] as String,
+      id: map['id'] == null ? map['_id'] as String : map['id'] as String,
       planName: map['planName'] as String,
       destination: map['destination'] as String,
       travelStartDate: DateTime.parse(map['travelStartDate'] as String),
       travelEndDate: DateTime.parse(map['travelEndDate'] as String),
       travelMode: map['travelMode'] as String,
       items: (map['details'] as List<dynamic>)
-          .map((e) => DateAndDetail.fromMap(e as Map<String, dynamic>))
+          .map(
+            (e) => DateAndDetail.fromMap(e as Map<String, dynamic>),
+          )
           .toList(),
       estimatedCost: map['estimatedCost'] as int,
     );
