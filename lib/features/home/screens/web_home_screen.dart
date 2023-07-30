@@ -64,7 +64,6 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
   }
 
   List<Widget> screens = [
-    //TODO: change this
     const ItineraryListScreen(),
     const ExploreDestinationScreen(),
     const ExploreMapsScreen(),

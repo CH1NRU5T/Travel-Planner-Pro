@@ -66,8 +66,8 @@ class _AddItineraryDialogState extends State<AddItineraryDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       content: SizedBox(
-        width: MediaQuery.sizeOf(context).width * 0.5,
-        height: MediaQuery.sizeOf(context).width * 0.5,
+        width: MediaQuery.sizeOf(context).width * 0.8,
+        height: MediaQuery.sizeOf(context).height * 0.8,
         child: Column(
           children: [
             Row(
@@ -129,7 +129,7 @@ class _AddItineraryDialogState extends State<AddItineraryDialog> {
                     },
                     child: Text(
                       startDate == null
-                          ? 'Start Date'
+                          ? 'Select Start Date'
                           : DateFormat('d MMM yyyy').format(
                               startDate!,
                             ),
@@ -155,7 +155,7 @@ class _AddItineraryDialogState extends State<AddItineraryDialog> {
                         });
                       },
                       child: Text(endDate == null
-                          ? 'End Date'
+                          ? 'Select End Date'
                           : DateFormat('d MMM yyyy').format(startDate!))),
                 ),
               ],

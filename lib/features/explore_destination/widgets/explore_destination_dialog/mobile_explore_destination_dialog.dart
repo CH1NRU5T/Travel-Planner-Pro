@@ -2,33 +2,38 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:travel_planner_pro/constants/extensions/extensions.dart';
-import 'package:travel_planner_pro/features/explore_destination/services/explore_destination_service.dart';
-import 'package:travel_planner_pro/models/particular_destination_model.dart';
-import 'package:travel_planner_pro/models/review_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ExploreDestinationDialog extends StatefulWidget {
-  const ExploreDestinationDialog({super.key, required this.destination});
+import '../../../../models/particular_destination_model.dart';
+import '../../../../models/review_model.dart';
+import '../../services/explore_destination_service.dart';
+
+class MobileExploreDestinationDialog extends StatefulWidget {
+  const MobileExploreDestinationDialog({super.key, required this.destination});
   final ParticularDestination destination;
 
   @override
-  State<ExploreDestinationDialog> createState() =>
-      _ExploreDestinationDialogState();
+  State<MobileExploreDestinationDialog> createState() =>
+      _MobileExploreDestinationDialogState();
 }
 
-class _ExploreDestinationDialogState extends State<ExploreDestinationDialog> {
+class _MobileExploreDestinationDialogState
+    extends State<MobileExploreDestinationDialog> {
   late List<Review> reviews;
-  ExploreDestinationService service = ExploreDestinationService();
-
   @override
   void initState() {
     super.initState();
     reviews = widget.destination.reviews;
   }
 
+  ExploreDestinationService service = ExploreDestinationService();
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      title: Text(
+        widget.destination.destination!.destinationName,
+        style: Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 30),
+      ),
       content: Container(
         width: MediaQuery.sizeOf(context).width * 0.8,
         height: MediaQuery.sizeOf(context).height * 0.8,
@@ -37,36 +42,36 @@ class _ExploreDestinationDialogState extends State<ExploreDestinationDialog> {
           scrollDirection: Axis.vertical,
           physics: const BouncingScrollPhysics(),
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  widget.destination.destination!.destinationName,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 25),
-                ),
-                Row(
-                  children: [
-                    Text(
+            Expanded(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
                       '${widget.destination.currentTemperature}°C',
                       style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20),
+                          fontWeight: FontWeight.bold, fontSize: 15),
                     ),
-                    10.width,
-                    Image.network(widget.destination.weatherIcon),
-                    10.width,
-                    Text(
+                  ),
+                  10.width,
+                  Expanded(
+                      child: Image.network(
+                    widget.destination.weatherIcon,
+                    scale: 1.5,
+                  )),
+                  10.width,
+                  Expanded(
+                    child: Text(
                       widget.destination.currentWeather,
                       style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20),
+                          fontWeight: FontWeight.bold, fontSize: 15),
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
             10.height,
             SizedBox(
-              height: 200,
+              // height: MediaQuery.sizeOf(context).height * 0.3,
               child: CarouselSlider.builder(
                   itemCount: widget.destination.destination!.images.length,
                   itemBuilder: (context, index, realIndex) {
@@ -79,57 +84,62 @@ class _ExploreDestinationDialogState extends State<ExploreDestinationDialog> {
                     );
                   },
                   options: CarouselOptions(
+                    enlargeCenterPage: true,
                     autoPlay: true,
                     enableInfiniteScroll: true,
                     disableCenter: true,
-                    viewportFraction: 0.3,
+                    viewportFraction: 0.8,
                   )),
             ),
             10.height,
-            ListTile(
-              leading: Text(
-                widget.destination.destination!.description,
-                style:
-                    const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-              ),
+            Text(
+              widget.destination.destination!.description,
+              style:
+                  Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 20),
             ),
             10.height,
-            ListTile(
-              leading: Text(
-                widget.destination.destination!.cityName,
-                style:
-                    const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-              ),
-              trailing: TextButton.icon(
-                style: TextButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  backgroundColor: Colors.blue,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  widget.destination.destination!.cityName,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(fontSize: 20),
                 ),
-                label: const Text('Directions'),
-                icon: const Icon(Icons.directions_outlined),
-                onPressed: () async {
-                  await launchUrl(
-                      Uri.parse(
-                          'https://maps.google.com/maps?q=${widget.destination.destination!.latitude},${widget.destination.destination!.longitude}'),
-                      mode: LaunchMode.externalApplication);
-                },
-              ),
+                IconButton(
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.blue,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  icon: const Icon(Icons.directions_outlined),
+                  onPressed: () async {
+                    await launchUrl(
+                        Uri.parse(
+                            'https://maps.google.com/maps?q=${widget.destination.destination!.latitude},${widget.destination.destination!.longitude}'),
+                        mode: LaunchMode.externalApplication);
+                  },
+                ),
+              ],
             ),
             10.height,
-            ListTile(
-              leading: Text(
-                widget.destination.destination!.avgTravelExpenses,
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              trailing: Text(
-                widget.destination.destination!.category,
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
+            Text(
+              widget.destination.destination!.avgTravelExpenses,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge!
+                  .copyWith(fontSize: 15),
+            ),
+            Text(
+              widget.destination.destination!.category,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge!
+                  .copyWith(fontSize: 15),
             ),
             10.height,
             TextButton.icon(

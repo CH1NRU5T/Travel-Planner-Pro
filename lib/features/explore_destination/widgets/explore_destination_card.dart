@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:travel_planner_pro/constants/extensions/extensions.dart';
 import 'package:travel_planner_pro/customWidgets/loader.dart';
 import 'package:travel_planner_pro/features/explore_destination/services/explore_destination_service.dart';
-import 'package:travel_planner_pro/features/explore_destination/widgets/explore_destination_dialog.dart';
+import 'package:travel_planner_pro/features/explore_destination/widgets/explore_destination_dialog/explore_destination_dialog.dart';
 import 'package:travel_planner_pro/models/particular_destination_model.dart';
 import 'package:travel_planner_pro/providers/destination_provider.dart';
 

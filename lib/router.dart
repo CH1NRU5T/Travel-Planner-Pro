@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_planner_pro/features/error_404/screens/error_404_screen.dart';
 import 'package:travel_planner_pro/features/home/screens/home_screen.dart';
 import 'package:travel_planner_pro/features/itinerary/screens/itinerary_screen.dart';
 import 'package:travel_planner_pro/prefs.dart';
@@ -35,7 +36,7 @@ generateRoute(RouteSettings settings) {
                 ItineraryScreen(itid: uriData.queryParameters['itid']!),
             settings: settings);
       default:
-        return MaterialPageRoute(builder: (_) => const AuthScreen());
+        return MaterialPageRoute(builder: (_) => const Error404Screen());
     }
   }
 }
