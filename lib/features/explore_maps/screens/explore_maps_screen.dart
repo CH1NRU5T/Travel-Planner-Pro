@@ -105,43 +105,64 @@ class _ExploreMapsScreenState extends State<ExploreMapsScreen> {
                     ),
                   ),
                   Expanded(
-                      flex: 2,
-                      child: CarouselSlider.builder(
-                          itemCount: locationList!.$2!.length,
-                          itemBuilder: (context, index, realIndex) {
-                            return DestinationContainer(
-                                index: index,
-                                onTap: (int val) {
-                                  onTap(val);
-                                },
-                                src: locationList!.$2![index].images.first,
-                                placeName:
-                                    locationList!.$2![index].destinationName,
-                                averageTravelExpenses:
-                                    locationList!.$2![index].avgTravelExpenses);
-                          },
-                          options: CarouselOptions(
-                            viewportFraction: 1 / 4,
-                            scrollPhysics: const BouncingScrollPhysics(),
-                            enableInfiniteScroll: false,
-                          ))
-                      // FlutterCarousel.builder(
-                      //   itemCount: locationList!.$2!.length,
-                      //   itemBuilder: (context, index, realIndex) {
-                      // return DestinationContainer(
-                      //     src: locationList!.$2![index].images.first,
-                      //     placeName: locationList!.$2![index].destinationName,
-                      //     averageTravelExpenses:
-                      //         locationList!.$2![index].avgTravelExpenses);
-                      //   },
-                      //   options: CarouselOptions(
-                      //     disableCenter: true,
-                      //     physics: const BouncingScrollPhysics(),
-                      //     viewportFraction: 0.3,
-                      //     scrollDirection: Axis.horizontal,
-                      //   ),
-                      // ),
-                      )
+                    flex: 2,
+                    child: CarouselSlider.builder(
+                        itemCount: locationList!.$2!.length,
+                        itemBuilder: (context, index, realIndex) {
+                          return DestinationContainer(
+                              index: index,
+                              onTap: (int val) {
+                                onTap(val);
+                              },
+                              src: locationList!.$2![index].images.first,
+                              placeName:
+                                  locationList!.$2![index].destinationName,
+                              averageTravelExpenses:
+                                  locationList!.$2![index].avgTravelExpenses);
+                        },
+                        options: CarouselOptions(
+                          padEnds: false,
+                          enableInfiniteScroll: false,
+                          disableCenter: false,
+                          viewportFraction: 0.3,
+                        )),
+
+                    // CarouselSlider.builder(
+                    //     itemCount: locationList!.$2!.length,
+                    //     itemBuilder: (context, index, realIndex) {
+                    //       return DestinationContainer(
+                    //           index: index,
+                    //           onTap: (int val) {
+                    //             onTap(val);
+                    //           },
+                    //           src: locationList!.$2![index].images.first,
+                    //           placeName:
+                    //               locationList!.$2![index].destinationName,
+                    //           averageTravelExpenses:
+                    //               locationList!.$2![index].avgTravelExpenses);
+                    //     },
+                    //     options: CarouselOptions(
+                    //       viewportFraction: 1 / 4,
+                    //       scrollPhysics: const BouncingScrollPhysics(),
+                    //       enableInfiniteScroll: false,
+                    //     ))
+                    // FlutterCarousel.builder(
+                    //   itemCount: locationList!.$2!.length,
+                    //   itemBuilder: (context, index, realIndex) {
+                    // return DestinationContainer(
+                    //     src: locationList!.$2![index].images.first,
+                    //     placeName: locationList!.$2![index].destinationName,
+                    //     averageTravelExpenses:
+                    //         locationList!.$2![index].avgTravelExpenses);
+                    //   },
+                    //   options: CarouselOptions(
+                    //     disableCenter: true,
+                    //     physics: const BouncingScrollPhysics(),
+                    //     viewportFraction: 0.3,
+                    //     scrollDirection: Axis.horizontal,
+                    //   ),
+                    // ),
+                  )
                 ],
               )
             : Text(locationList!.$1!);
