@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../env/env.dart';
 import '../../../models/destination_model.dart';
 import '../../../models/particular_destination_model.dart';
+import '../../../models/review_model.dart';
 import '../../../prefs.dart';
 import '../../../providers/destination_provider.dart';
 import '../../api/api.dart';
@@ -68,6 +69,9 @@ class ExploreDestinationService {
       if (response.$1 == null) {
         Destination destination =
             Destination.fromMap(response.$2!['data']['destinationDtoObj']);
+        List<dynamic> reviews = response.$2!['data']['reviewsDtoObj'];
+        List<Review> reviewList =
+            reviews.map((e) => Review.fromMap(e)).toList();
         ParticularDestination particularDestination = ParticularDestination(
           destination: destination,
           currentWeather: response.$2!['data']['destinationDtoObj']
@@ -75,6 +79,7 @@ class ExploreDestinationService {
           currentTemperature: response.$2!['data']['destinationDtoObj']
               ['currentTemperature'],
           weatherIcon: response.$2!['data']['destinationDtoObj']['weatherIcon'],
+          reviews: reviewList,
         );
 
         return (null, particularDestination);

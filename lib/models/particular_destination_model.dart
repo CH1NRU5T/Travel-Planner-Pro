@@ -2,14 +2,17 @@
 import 'dart:convert';
 
 import 'package:travel_planner_pro/models/destination_model.dart';
+import 'package:travel_planner_pro/models/review_model.dart';
 
 class ParticularDestination {
   Destination? destination;
   String currentWeather;
   double currentTemperature;
   String weatherIcon;
+  List<Review> reviews;
   ParticularDestination({
     this.destination,
+    required this.reviews,
     required this.currentWeather,
     required this.currentTemperature,
     required this.weatherIcon,
@@ -21,6 +24,7 @@ class ParticularDestination {
       'currentWeather': currentWeather,
       'currentTemperature': currentTemperature,
       'weatherIcon': weatherIcon,
+      'reviews': reviews,
     };
   }
 
@@ -32,6 +36,7 @@ class ParticularDestination {
       currentWeather: map['currentWeather'] as String,
       currentTemperature: map['currentTemperature'] as double,
       weatherIcon: map['weatherIcon'] as String,
+      reviews: map['reviews'] as List<Review>,
     );
   }
 
@@ -43,6 +48,6 @@ class ParticularDestination {
 
   @override
   String toString() {
-    return 'ParticularDestination(destination: $destination, currentWeather: $currentWeather, currentTemperature: $currentTemperature, weatherIcon: $weatherIcon)';
+    return 'ParticularDestination(destination: $destination, currentWeather: $currentWeather, currentTemperature: $currentTemperature, weatherIcon: $weatherIcon, reviews: $reviews)';
   }
 }

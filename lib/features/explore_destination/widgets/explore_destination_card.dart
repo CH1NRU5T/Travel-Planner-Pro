@@ -15,7 +15,7 @@ class ExploreDestinationCard extends StatelessWidget {
       ExploreDestinationService();
   final Destination destination;
   @override
-  Widget build(BuildContext context1) {
+  Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 20),
       child: Column(
@@ -24,23 +24,23 @@ class ExploreDestinationCard extends StatelessWidget {
           GestureDetector(
             onTap: () async {
               showDialog(
-                context: context1,
+                context: context,
                 builder: (context) {
                   return const Loader();
                 },
               );
               (String?, ParticularDestination?) record =
                   await exploreDestinationService.fetchParticularDestination(
-                      context1,
+                      context,
                       destination.id,
-                      context1
+                      context
                           .read<DestinationProvider>()
                           .particularDestinationList);
-              if (context1.mounted) {
-                Navigator.pop(context1);
+              if (context.mounted) {
+                Navigator.pop(context);
                 if (record.$1 == null) {
                   showDialog(
-                    context: context1,
+                    context: context,
                     builder: (context) {
                       return ExploreDestinationDialog(
                         destination: record.$2!,
@@ -48,7 +48,7 @@ class ExploreDestinationCard extends StatelessWidget {
                     },
                   );
                 } else {
-                  context1.showToast(msg: record.$1!);
+                  context.showToast(msg: record.$1!);
                 }
               }
             },

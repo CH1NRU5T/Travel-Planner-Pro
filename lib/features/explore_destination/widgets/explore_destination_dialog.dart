@@ -1,7 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:travel_planner_pro/constants/extensions/extensions.dart';
 import 'package:travel_planner_pro/models/particular_destination_model.dart';
+import 'package:travel_planner_pro/models/review_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ExploreDestinationDialog extends StatelessWidget {
@@ -63,10 +65,17 @@ class ExploreDestinationDialog extends StatelessWidget {
                   options: CarouselOptions(
                     autoPlay: true,
                     enableInfiniteScroll: true,
-                    // enlargeCenterPage: true,
                     disableCenter: true,
                     viewportFraction: 0.3,
                   )),
+            ),
+            10.height,
+            ListTile(
+              leading: Text(
+                destination.destination!.description,
+                style:
+                    const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
             ),
             10.height,
             ListTile(
@@ -76,21 +85,22 @@ class ExploreDestinationDialog extends StatelessWidget {
                     const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
               trailing: TextButton.icon(
-                  style: TextButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.blue,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.blue,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                  label: const Text('Directions'),
-                  icon: const Icon(Icons.directions_outlined),
-                  onPressed: () async {
-                    await launchUrl(
-                        Uri.parse(
-                            'https://maps.google.com/maps?q=${destination.destination!.latitude},${destination.destination!.longitude}'),
-                        mode: LaunchMode.externalApplication);
-                  }),
+                ),
+                label: const Text('Directions'),
+                icon: const Icon(Icons.directions_outlined),
+                onPressed: () async {
+                  await launchUrl(
+                      Uri.parse(
+                          'https://maps.google.com/maps?q=${destination.destination!.latitude},${destination.destination!.longitude}'),
+                      mode: LaunchMode.externalApplication);
+                },
+              ),
             ),
             10.height,
             ListTile(
@@ -105,10 +115,86 @@ class ExploreDestinationDialog extends StatelessWidget {
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
-            // Row(children: [
-            //   Expanded(child: ,),
-            //   // Expanded(),
-            // ],)
+            10.height,
+            TextButton.icon(
+              onPressed: () async {
+                await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            Navigator.pop(context);
+                          },
+                          child: const Text('Submit'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              icon: const Icon(
+                Icons.add_rounded,
+              ),
+              label: const Text('Add Review'),
+            ),
+            10.height,
+            destination.reviews.isEmpty
+                ? const ListTile(
+                    title: Text(
+                      'No Reviews',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  )
+                : ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: destination.reviews.length,
+                    itemBuilder: (context, index) {
+                      Review review = destination.reviews[index];
+                      return ListTile(
+                        title: Row(
+                          children: [
+                            Text(
+                              review.reviewerName,
+                              style: const TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                            RatingBar.builder(
+                              initialRating: review.rating,
+                              minRating: 0,
+                              direction: Axis.horizontal,
+                              allowHalfRating: true,
+                              itemCount: 5,
+                              itemSize: 20,
+                              itemPadding:
+                                  const EdgeInsets.symmetric(horizontal: 4.0),
+                              itemBuilder: (context, _) => const Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                              ),
+                              onRatingUpdate: (rating) {},
+                            ),
+                          ],
+                        ),
+                        subtitle: Text(
+                          review.review,
+                        ),
+                        // Text(
+                        //   destination.reviews[index].rating.toString(),
+                        //   style: const TextStyle(
+                        //       fontSize: 20, fontWeight: FontWeight.bold),
+                        // ),
+                      );
+                    },
+                  ),
           ],
         ),
       ),
