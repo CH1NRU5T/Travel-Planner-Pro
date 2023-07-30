@@ -34,17 +34,23 @@ class ItineraryDialog extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(planName, style: Theme.of(context).textTheme.headlineLarge),
+            Text(planName,
+                style:
+                    const TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
             const Divider(),
-            Text(destination, style: Theme.of(context).textTheme.titleLarge),
+            Text(destination,
+                style:
+                    const TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
             5.height,
             Text(
                 '${DateFormat('dd MMM yyyy').format(startDate)} - ${DateFormat('dd MMM yyyy').format(endDate)}',
                 style: Theme.of(context).textTheme.titleLarge),
             5.height,
-            Text(travelMode, style: Theme.of(context).textTheme.titleLarge),
+            Text('Travel mode: $travelMode',
+                style: Theme.of(context).textTheme.titleLarge),
             5.height,
-            Text('₹ $cost', style: Theme.of(context).textTheme.titleLarge),
+            Text('Cost: ₹ $cost',
+                style: Theme.of(context).textTheme.titleLarge),
           ],
         ),
         content: SizedBox(

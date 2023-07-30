@@ -92,9 +92,9 @@ class SignupForm extends StatelessWidget {
               text: TextSpan(
             style: const TextStyle(fontSize: 19),
             children: [
-              const TextSpan(
+              TextSpan(
                   text: 'Already have an account? ',
-                  style: TextStyle(color: Colors.white)),
+                  style: TextStyle(color: isWeb ? Colors.white : Colors.black)),
               TextSpan(
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {

@@ -20,7 +20,6 @@ class ItineraryListService {
       List<Itinerary> itineraryList = (response.$2!['data'] as List<dynamic>)
           .map((e) => Itinerary.fromMap(e as Map<String, dynamic>))
           .toList();
-      print(itineraryList);
       return (null, itineraryList);
     } else {
       if (context.mounted) {
@@ -31,6 +30,26 @@ class ItineraryListService {
         );
       }
       return (response.$1, null);
+    }
+
+    // else {
+    //   ParticularDestination? particularDestination =
+    //       pList.firstWhere((element) => element.destination!.id == id);
+    //   return (null, particularDestination);
+    // }
+  }
+
+  void addItinerary(BuildContext context, Map<String, dynamic> body) async {
+    (String?, Map<String, dynamic>?) response = await Api.postRequest(
+        url: '${Env.baseUrl}/api/v1/add-itenery',
+        headers: {
+          'Authorization': 'Bearer ${Prefs.getString('token')}',
+          'Content-Type': 'application/json'
+        },
+        body: body) as (String?, Map<String, dynamic>?);
+    if (response.$1 == null) {
+    } else {
+      // return (response.$1, null);
     }
 
     // else {
