@@ -37,9 +37,7 @@ class _SavedDestinationScreenState extends State<SavedDestinationScreen> {
                 children: _destinationProvider.savedDestinationList!.map(
                   (e) {
                     return ExploreDestinationCard(
-                      src: e.images.first,
-                      name: e.destinationName,
-                      avgTravelExpenses: e.avgTravelExpenses,
+                      destination: e,
                     );
                   },
                 ).toList(),

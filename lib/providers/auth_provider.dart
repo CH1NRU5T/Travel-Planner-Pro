@@ -18,9 +18,9 @@ class AuthProvider extends ChangeNotifier {
       {required String email,
       required String password,
       required BuildContext context}) async {
-    (String?, User?) data = await authService.login(email.trim(), password);
+    (String?, dynamic) data = await authService.login(email.trim(), password);
     if (data.$1 == null) {
-      Prefs.setString('token', data.$2!.token);
+      Prefs.setString('token', User.fromMap(data.$2).token);
       notifyListeners();
       if (context.mounted) {
         Navigator.pushReplacementNamed(

@@ -61,10 +61,7 @@ class _ExploreDestinationScreenState extends State<ExploreDestinationScreen> {
                       runSpacing: 1,
                       children: _destinationProvider.destinationList!.map(
                         (e) {
-                          return ExploreDestinationCard(
-                              src: e.images.first,
-                              name: e.destinationName,
-                              avgTravelExpenses: e.avgTravelExpenses);
+                          return ExploreDestinationCard(destination: e);
                         },
                       ).toList(),
                     ),

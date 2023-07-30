@@ -3,10 +3,10 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:travel_planner_pro/features/saved_destination/screens/saved_destination_screen.dart';
 import 'package:travel_planner_pro/providers/auth_provider.dart';
-import 'package:travel_planner_pro/providers/destination_provider.dart';
 
 import '../../../constants/colors/custom_colors.dart';
 import '../../explore_destination/screens/explore_destination_screen.dart';
+import '../../explore_destination/services/explore_destination_service.dart';
 import '../../explore_maps/screens/explore_maps_screen.dart';
 import '../../itinerary/screens/itinerary_screen.dart';
 
@@ -18,6 +18,8 @@ class WebHomeScreen extends StatefulWidget {
 }
 
 class _WebHomeScreenState extends State<WebHomeScreen> {
+  ExploreDestinationService exploreDestinationService =
+      ExploreDestinationService();
   int selectedIndex = 0;
 
   void setSelectedIndex(int index) {
@@ -32,9 +34,11 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
     fetchDestinationList();
   }
 
-  void fetchDestinationList() {
-    context.read<DestinationProvider>().fetchDestinationList(context);
-    context.read<DestinationProvider>().fetchSavedDestinationList(context);
+  void fetchDestinationList() async {
+    await exploreDestinationService.fetchDestinationList(context);
+    if (context.mounted) {
+      await exploreDestinationService.fetchSavedDestinationList(context);
+    }
   }
 
   List<Widget> screens = [

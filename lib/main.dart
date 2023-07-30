@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
     html.ScriptElement script = html.ScriptElement()
       ..src =
           'https://maps.googleapis.com/maps/api/js?key=${Env.key}&libraries=libraries=drawing,visualization,places';
-    html.querySelector('#customScript')!.replaceWith(script);
+    html.querySelector('#customScript')?.replaceWith(script);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Travel Planner Pro',
