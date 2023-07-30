@@ -42,7 +42,9 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
   int selectedIndex = 1;
 
   List<Widget> screens = [
-    const ItineraryScreen(),
+    const ItineraryScreen(
+      itid: '1',
+    ),
     const ExploreDestinationScreen(),
     const ExploreMapsScreen(),
   ];

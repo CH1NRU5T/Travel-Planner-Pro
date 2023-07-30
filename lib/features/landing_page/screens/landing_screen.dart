@@ -76,6 +76,7 @@ class LandingScreen extends StatelessWidget {
                                   onPressed: () {
                                     Navigator.pushNamed(
                                       context,
+                                      // '${ItineraryScreen.routeName}?itid=1qw'
                                       AuthScreen.routeName,
                                       arguments: 'login',
                                     );
