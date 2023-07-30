@@ -59,11 +59,11 @@ class _MobileItineraryListScreenState extends State<MobileItineraryListScreen> {
                   scrollDirection: Axis.vertical,
                   physics: const BouncingScrollPhysics(),
                   child: Wrap(
-                    alignment: WrapAlignment.start,
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    spacing: 20,
+                    runSpacing: 10,
                     children: value.itineraryList!.map((e) {
                       return ItineraryListCard(
+                        wf: 1,
+                        hf: 0.4,
                         travelMode: e.travelMode,
                         id: e.id,
                         details: e.items,

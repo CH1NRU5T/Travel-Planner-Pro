@@ -4,6 +4,7 @@ import 'package:travel_planner_pro/features/itinerary_list/widgets/itinerary_dia
 import 'package:travel_planner_pro/models/itinerary_model.dart';
 
 class ItineraryListCard extends StatelessWidget {
+  final double wf, hf;
   const ItineraryListCard(
       {super.key,
       required this.planName,
@@ -13,7 +14,9 @@ class ItineraryListCard extends StatelessWidget {
       required this.cost,
       required this.details,
       required this.travelMode,
-      required this.id});
+      required this.id,
+      required this.wf,
+      required this.hf});
   final String planName;
   final String id;
   final String destination;
@@ -44,8 +47,8 @@ class ItineraryListCard extends StatelessWidget {
       },
       child: Card(
         child: SizedBox(
-          width: MediaQuery.sizeOf(context).width * 0.9,
-          height: MediaQuery.sizeOf(context).height * 0.7,
+          width: MediaQuery.sizeOf(context).width * wf,
+          height: MediaQuery.sizeOf(context).height * hf,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(

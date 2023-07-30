@@ -11,6 +11,7 @@ import '../../explore_destination/screens/explore_destination_screen.dart';
 import '../../explore_maps/screens/explore_maps_screen.dart';
 import '../../itinerary_list/screens/itinerary_list_screen.dart';
 import '../../saved_itinerary/screens/saved_itinerary_screen.dart';
+import '../widgets/add_itinerary_dialog.dart';
 
 class MobileHomeScreen extends StatefulWidget {
   const MobileHomeScreen({super.key});
@@ -53,6 +54,19 @@ class _MobileHomeScreenState extends State<MobileHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: selectedIndex == 0
+          ? FloatingActionButton(
+              onPressed: () async {
+                await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return const AddItineraryDialog();
+                  },
+                );
+              },
+              child: const Icon(Icons.add),
+            )
+          : null,
       drawer: Drawer(
         backgroundColor: CustomColors.darkBlue,
         child: Column(

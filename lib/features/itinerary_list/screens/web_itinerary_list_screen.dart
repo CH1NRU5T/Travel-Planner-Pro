@@ -58,9 +58,11 @@ class _WebItineraryListScreenState extends State<WebItineraryListScreen> {
                   scrollDirection: Axis.vertical,
                   physics: const BouncingScrollPhysics(),
                   child: Wrap(
-                    spacing: 10,
+                    runSpacing: 10,
                     children: value.itineraryList!.map((e) {
                       return ItineraryListCard(
+                        wf: 0.25,
+                        hf: 0.5,
                         travelMode: e.travelMode,
                         id: e.id,
                         details: e.items,
