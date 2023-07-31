@@ -41,70 +41,82 @@ class _ItineraryScreenState extends State<ItineraryScreen> {
       body: Center(
         child: itinerary == null
             ? const Loader()
-            : Column(
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(itinerary!.planName,
-                          style: const TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.bold)),
-                      const Divider(),
-                      Text(itinerary!.destination,
-                          style: const TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.bold)),
-                      5.height,
-                      Text(
-                          '${DateFormat('dd MMM yyyy').format(itinerary!.travelStartDate)} - ${DateFormat('dd MMM yyyy').format(itinerary!.travelEndDate)}',
-                          style: Theme.of(context).textTheme.titleLarge),
-                      5.height,
-                      Text('Travel mode: ${itinerary!.travelMode}',
-                          style: Theme.of(context).textTheme.titleLarge),
-                      5.height,
-                      Text('Cost: ₹ ${itinerary!.estimatedCost}',
-                          style: Theme.of(context).textTheme.titleLarge),
-                      Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            : Card(
+                child: SizedBox(
+                  width: MediaQuery.sizeOf(context).width * 0.25,
+                  height: MediaQuery.sizeOf(context).height * 0.6,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Column(
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Text(itinerary!.planName,
+                                style: const TextStyle(
+                                    fontSize: 30, fontWeight: FontWeight.bold)),
+                            const Divider(),
+                            Text(itinerary!.destination,
+                                style: const TextStyle(
+                                    fontSize: 30, fontWeight: FontWeight.bold)),
+                            5.height,
+                            Text(
+                                '${DateFormat('dd MMM yyyy').format(itinerary!.travelStartDate)} - ${DateFormat('dd MMM yyyy').format(itinerary!.travelEndDate)}',
+                                style: Theme.of(context).textTheme.titleLarge),
+                            5.height,
+                            Text('Travel mode: ${itinerary!.travelMode}',
+                                style: Theme.of(context).textTheme.titleLarge),
+                            5.height,
+                            Text('Cost: ₹ ${itinerary!.estimatedCost}',
+                                style: Theme.of(context).textTheme.titleLarge),
+                            10.height,
                             Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                for (int i = 0;
-                                    i < itinerary!.items.length;
-                                    i++)
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      const Divider(),
-                                      Text(
-                                        '${i + 1}. ${itinerary!.items[i].dayDetail}',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge,
-                                      ),
-                                      const Expanded(
-                                          child: Padding(
-                                        padding:
-                                            EdgeInsets.symmetric(horizontal: 5),
-                                        child: Divider(),
-                                      )),
-                                      Text(
-                                        DateFormat('d MMM yyyy')
-                                            .format(itinerary!.items[i].date),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge,
-                                      ),
+                                      for (int i = 0;
+                                          i < itinerary!.items.length;
+                                          i++)
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            const Divider(),
+                                            Text(
+                                              '${i + 1}. ${itinerary!.items[i].dayDetail}',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyLarge,
+                                            ),
+                                            const Expanded(
+                                                child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 5),
+                                              child: Divider(),
+                                            )),
+                                            Text(
+                                              DateFormat('d MMM yyyy').format(
+                                                  itinerary!.items[i].date),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyLarge,
+                                            ),
+                                          ],
+                                        ),
                                     ],
                                   ),
-                              ],
-                            ),
-                          ]),
-                    ],
+                                ]),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ],
+                ),
               ),
       ),
     );

@@ -9,14 +9,13 @@ class Api {
       Map<String, String>? headers}) async {
     http.Response response;
     try {
-      print('coded: ${jsonEncode(body)}');
       response = await http.post(Uri.parse(url),
           headers: headers, body: jsonEncode(body));
 
       if (response.statusCode == 200) {
         return (null, jsonDecode(response.body));
       } else {
-        return (jsonDecode(response.body)['error'] as String, null);
+        return (null, jsonDecode(response.body));
       }
     } catch (e) {
       return (e.toString(), null);
