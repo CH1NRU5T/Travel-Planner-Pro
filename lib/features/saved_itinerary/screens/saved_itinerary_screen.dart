@@ -40,13 +40,13 @@ class _SavedItineraryScreenState extends State<SavedItineraryScreen> {
                       physics: const BouncingScrollPhysics(),
                       child: Wrap(
                         verticalDirection: VerticalDirection.down,
-                        spacing: 10,
+                        runSpacing: 10,
                         children: value.savedItineraryList!.map(
                           (e) {
                             return ItineraryListCard(
                               fav: true,
-                              hf: 0.3,
-                              wf: 0.3,
+                              wf: 1,
+                              hf: 0.4,
                               travelMode: e.travelMode,
                               id: e.id,
                               details: e.items,
