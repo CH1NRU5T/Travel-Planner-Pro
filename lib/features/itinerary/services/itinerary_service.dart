@@ -15,11 +15,10 @@ class ItineraryService {
       body: {
         'iteneryId': id,
       },
-    ) as (String?, Map<String, dynamic>?);
+    );
     if (response.$1 == null) {
-      return (null, Itinerary.fromMap(response.$2!));
+      return (null, Itinerary.fromMap(response.$2!['data']));
     } else {
-      print('err${response.$1}');
       return (response.$1, null);
     }
   }

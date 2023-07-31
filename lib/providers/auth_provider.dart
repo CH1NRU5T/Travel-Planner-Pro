@@ -43,7 +43,7 @@ class AuthProvider extends ChangeNotifier {
       required String phone,
       required String password,
       required BuildContext context}) async {
-    (String?, User?) data = await authService.signUp(
+    (String?, dynamic) data = await authService.signUp(
       userName: userName,
       email: email,
       password: password,
@@ -51,7 +51,7 @@ class AuthProvider extends ChangeNotifier {
       name: name,
     );
     if (data.$1 == null) {
-      Prefs.setString('token', data.$2!.token);
+      Prefs.setString('token', User.fromMap(data.$2).token);
 
       notifyListeners();
       if (context.mounted) {

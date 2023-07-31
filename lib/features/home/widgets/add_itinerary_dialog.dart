@@ -1,15 +1,19 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:travel_planner_pro/constants/extensions/extensions.dart';
 import 'package:travel_planner_pro/features/itinerary_list/services/itinerary_list_service.dart';
 import 'package:travel_planner_pro/models/itinerary_model.dart';
+import 'package:travel_planner_pro/providers/itinerary_provider.dart';
 
 import '../../../customWidgets/custom_text_form_field.dart';
 
 class AddItineraryDialog extends StatefulWidget {
-  const AddItineraryDialog({super.key});
-
+  const AddItineraryDialog({
+    super.key,
+  });
+  // final Function setScreenState;
   @override
   State<AddItineraryDialog> createState() => _AddItineraryDialogState();
 }
@@ -156,7 +160,7 @@ class _AddItineraryDialogState extends State<AddItineraryDialog> {
                       },
                       child: Text(endDate == null
                           ? 'Select End Date'
-                          : DateFormat('d MMM yyyy').format(startDate!))),
+                          : DateFormat('d MMM yyyy').format(endDate!))),
                 ),
               ],
             ),
@@ -212,7 +216,7 @@ class _AddItineraryDialogState extends State<AddItineraryDialog> {
           child: const Text('Cancel'),
         ),
         TextButton(
-          onPressed: () {
+          onPressed: () async {
             Itinerary itinerary = Itinerary(
               id: '',
               planName: planNameController.text,
@@ -224,6 +228,8 @@ class _AddItineraryDialogState extends State<AddItineraryDialog> {
               items: details,
             );
             itineraryListService.addItinerary(context, itinerary.toMap());
+            context.read<ItineraryProvider>().reload(context);
+            // widget.setScreenState();
             Navigator.pop(context);
           },
           child: const Text('Add'),

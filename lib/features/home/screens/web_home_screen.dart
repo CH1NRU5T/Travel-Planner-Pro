@@ -70,6 +70,7 @@ class _WebHomeScreenState extends State<WebHomeScreen> {
     const SavedDestinationScreen(),
     const SavedItineraryScreen()
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

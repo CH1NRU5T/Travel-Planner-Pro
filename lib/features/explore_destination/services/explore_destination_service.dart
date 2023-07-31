@@ -69,7 +69,7 @@ class ExploreDestinationService {
           'Content-Type': 'application/json'
         },
         body: {'destination_id': id},
-      ) as (String?, Map<String, dynamic>?);
+      );
       if (response.$1 == null) {
         Destination destination =
             Destination.fromMap(response.$2!['data']['destinationDtoObj']);
@@ -116,7 +116,7 @@ class ExploreDestinationService {
         'review': review,
         'rating': rating
       },
-    ) as (String?, Map<String, dynamic>?);
+    );
     if (response.$1 == null) {
       if (response.$2!['message'] == null) {
         return (response.$2!['error'] as String, false);
@@ -138,7 +138,7 @@ class ExploreDestinationService {
       body: {
         'destinationId': destinationId,
       },
-    ) as (String?, Map<String, dynamic>?);
+    );
     if (response.$1 == null) {
       if (response.$2!['message'] == null) {
         return (response.$2!['error'] as String, false);
@@ -178,7 +178,7 @@ class ExploreDestinationService {
       body: {
         'keyword': word,
       },
-    ) as (String?, Map<String, dynamic>?);
+    );
 
     if (response.$1 == null) {
       List<dynamic> list = List.from(

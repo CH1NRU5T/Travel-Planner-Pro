@@ -42,54 +42,52 @@ class _MobileExploreDestinationDialogState
           scrollDirection: Axis.vertical,
           physics: const BouncingScrollPhysics(),
           children: [
-            Expanded(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      '${widget.destination.currentTemperature}°C',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 15),
-                    ),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    '${widget.destination.currentTemperature}°C',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 15),
                   ),
-                  10.width,
-                  Expanded(
-                      child: Image.network(
-                    widget.destination.weatherIcon,
-                    scale: 1.5,
-                  )),
-                  10.width,
-                  Expanded(
-                    child: Text(
-                      widget.destination.currentWeather,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 15),
-                    ),
+                ),
+                10.width,
+                Expanded(
+                    child: Image.network(
+                  widget.destination.weatherIcon,
+                  scale: 1.5,
+                )),
+                10.width,
+                Expanded(
+                  child: Text(
+                    widget.destination.currentWeather,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 15),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             10.height,
             SizedBox(
-              // height: MediaQuery.sizeOf(context).height * 0.3,
               child: CarouselSlider.builder(
-                  itemCount: widget.destination.destination!.images.length,
-                  itemBuilder: (context, index, realIndex) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 5),
-                      child: Image.network(
-                        widget.destination.destination!.images[index],
-                        fit: BoxFit.cover,
-                      ),
-                    );
-                  },
-                  options: CarouselOptions(
-                    enlargeCenterPage: true,
-                    autoPlay: true,
-                    enableInfiniteScroll: true,
-                    disableCenter: true,
-                    viewportFraction: 0.8,
-                  )),
+                itemCount: widget.destination.destination!.images.length,
+                itemBuilder: (context, index, realIndex) {
+                  return Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    child: Image.network(
+                      widget.destination.destination!.images[index],
+                      fit: BoxFit.cover,
+                    ),
+                  );
+                },
+                options: CarouselOptions(
+                  enlargeCenterPage: true,
+                  autoPlay: true,
+                  enableInfiniteScroll: true,
+                  disableCenter: true,
+                  viewportFraction: 0.8,
+                ),
+              ),
             ),
             10.height,
             Text(
@@ -237,7 +235,7 @@ class _MobileExploreDestinationDialogState
                   )
                 : ListView.builder(
                     shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     itemCount: widget.destination.reviews.length,
                     itemBuilder: (context, index) {
                       Review review = widget.destination.reviews[index];
@@ -269,11 +267,6 @@ class _MobileExploreDestinationDialogState
                         subtitle: Text(
                           review.review,
                         ),
-                        // Text(
-                        //   destination.reviews[index].rating.toString(),
-                        //   style: const TextStyle(
-                        //       fontSize: 20, fontWeight: FontWeight.bold),
-                        // ),
                       );
                     },
                   ),

@@ -24,7 +24,7 @@ class ItineraryDialog extends StatelessWidget {
   final int cost;
   final String travelMode;
   //TODO: Change this to the actual link
-  final String shareBaseLink = 'http://localhost:65250/';
+  final String shareBaseLink = 'https://travelplannerpro-10394.web.app/';
   @override
   Widget build(BuildContext context) {
     int length = dateAndDetail.length;
