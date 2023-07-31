@@ -12,8 +12,8 @@ class ItineraryProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setSavedItineraryList(List<Itinerary> list) {
-    savedItineraryList = list;
+  void setSavedItineraryList(List<dynamic> list) {
+    savedItineraryList = list as List<Itinerary>;
     notifyListeners();
   }
 

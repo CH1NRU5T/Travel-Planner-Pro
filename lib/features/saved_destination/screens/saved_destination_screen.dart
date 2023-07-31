@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:travel_planner_pro/customWidgets/loader.dart';
+import 'package:travel_planner_pro/features/empty/screens/empty_screen.dart';
 
 import '../../../providers/destination_provider.dart';
 import '../../explore_destination/widgets/explore_destination_card.dart';
@@ -27,25 +28,27 @@ class _SavedDestinationScreenState extends State<SavedDestinationScreen> {
         ? const Loader()
         : Consumer<DestinationProvider>(
             builder: (context, value, child) {
-              return Padding(
-                padding: const EdgeInsets.all(20),
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: Wrap(
-                    direction: Axis.horizontal,
-                    alignment: WrapAlignment.start,
-                    spacing: 20,
-                    runSpacing: 1,
-                    children: value.savedDestinationList!.map(
-                      (e) {
-                        return ExploreDestinationCard(
-                          destination: e,
-                        );
-                      },
-                    ).toList(),
-                  ),
-                ),
-              );
+              return value.savedDestinationList!.isEmpty
+                  ? const EmptyScreen()
+                  : Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        child: Wrap(
+                          direction: Axis.horizontal,
+                          alignment: WrapAlignment.start,
+                          spacing: 20,
+                          runSpacing: 1,
+                          children: value.savedDestinationList!.map(
+                            (e) {
+                              return ExploreDestinationCard(
+                                destination: e,
+                              );
+                            },
+                          ).toList(),
+                        ),
+                      ),
+                    );
             },
             // child: Padding(
             //     padding: const EdgeInsets.all(20),

@@ -34,6 +34,7 @@ class _MobileItineraryListScreenState extends State<MobileItineraryListScreen> {
   void fetch() async {
     (String?, List<Itinerary>?) record =
         await itineraryService.fetchItineraryList(context);
+
     if (record.$1 != null) {
       if (context.mounted) {
         ScaffoldMessenger.of(context)

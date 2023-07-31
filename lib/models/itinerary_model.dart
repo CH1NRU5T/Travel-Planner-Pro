@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 class Itinerary {
@@ -53,6 +54,11 @@ class Itinerary {
 
   factory Itinerary.fromJson(String source) =>
       Itinerary.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  @override
+  String toString() {
+    return 'Itinerary(planName: $planName, id: $id, destination: $destination, travelStartDate: $travelStartDate, travelEndDate: $travelEndDate, travelMode: $travelMode, items: $items, estimatedCost: $estimatedCost)';
+  }
 }
 
 class DateAndDetail {
