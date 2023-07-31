@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 class Itinerary {
+  bool fav;
   String planName;
   String id;
   String destination;
@@ -11,6 +12,7 @@ class Itinerary {
   List<DateAndDetail> items;
   int estimatedCost;
   Itinerary({
+    this.fav = false,
     required this.id,
     required this.planName,
     required this.destination,
@@ -58,6 +60,30 @@ class Itinerary {
   @override
   String toString() {
     return 'Itinerary(planName: $planName, id: $id, destination: $destination, travelStartDate: $travelStartDate, travelEndDate: $travelEndDate, travelMode: $travelMode, items: $items, estimatedCost: $estimatedCost)';
+  }
+
+  Itinerary copyWith({
+    bool? fav,
+    String? planName,
+    String? id,
+    String? destination,
+    DateTime? travelStartDate,
+    DateTime? travelEndDate,
+    String? travelMode,
+    List<DateAndDetail>? items,
+    int? estimatedCost,
+  }) {
+    return Itinerary(
+      fav: fav ?? this.fav,
+      planName: planName ?? this.planName,
+      id: id ?? this.id,
+      destination: destination ?? this.destination,
+      travelStartDate: travelStartDate ?? this.travelStartDate,
+      travelEndDate: travelEndDate ?? this.travelEndDate,
+      travelMode: travelMode ?? this.travelMode,
+      items: items ?? this.items,
+      estimatedCost: estimatedCost ?? this.estimatedCost,
+    );
   }
 }
 

@@ -19,7 +19,25 @@ class SavedItineraryService {
 
     if (response.$1 == null) {
       context.read<ItineraryProvider>().setSavedItineraryList(
-          List<Itinerary>.from(response.$2!['iteneries']));
+              List<Itinerary>.generate(response.$2!['iteneries'].length,
+                  (index) {
+            return Itinerary.fromMap(response.$2!['iteneries'][index]);
+          }));
+    } else {}
+  }
+
+  void toggleSavedItinerary(String itid) async {
+    (String?, Map<String, dynamic>?) response = await Api.postRequest(
+      url: '${Env.baseUrl}/api/v1/save-itenary-toggle',
+      headers: {
+        'Authorization': 'Bearer ${Prefs.getString('token')}',
+        'Content-Type': 'application/json'
+      },
+      body: {
+        'iteneryId': itid,
+      },
+    );
+    if (response.$1 == null) {
     } else {}
   }
 }

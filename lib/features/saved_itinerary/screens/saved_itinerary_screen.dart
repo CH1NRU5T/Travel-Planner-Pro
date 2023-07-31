@@ -44,6 +44,7 @@ class _SavedItineraryScreenState extends State<SavedItineraryScreen> {
                         children: value.savedItineraryList!.map(
                           (e) {
                             return ItineraryListCard(
+                              fav: true,
                               hf: 0.3,
                               wf: 0.3,
                               travelMode: e.travelMode,

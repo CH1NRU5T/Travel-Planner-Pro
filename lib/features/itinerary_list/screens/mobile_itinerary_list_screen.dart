@@ -66,6 +66,7 @@ class _MobileItineraryListScreenState extends State<MobileItineraryListScreen> {
                         runSpacing: 10,
                         children: value.itineraryList!.map((e) {
                           return ItineraryListCard(
+                            fav: e.fav,
                             wf: 1,
                             hf: 0.4,
                             travelMode: e.travelMode,

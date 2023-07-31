@@ -66,6 +66,7 @@ class _WebItineraryListScreenState extends State<WebItineraryListScreen> {
                         runSpacing: 10,
                         children: value.itineraryList!.map((e) {
                           return ItineraryListCard(
+                            fav: e.fav,
                             wf: 0.25,
                             hf: 0.5,
                             travelMode: e.travelMode,

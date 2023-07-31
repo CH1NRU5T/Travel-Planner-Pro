@@ -24,4 +24,12 @@ class ItineraryProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<void> reloadSaved(BuildContext context) async {
+    (String?, List<Itinerary>?) record = await iS.fetchItineraryList(context);
+    if (record.$1 == null) {
+      setSavedItineraryList(record.$2!);
+      notifyListeners();
+    }
+  }
 }
