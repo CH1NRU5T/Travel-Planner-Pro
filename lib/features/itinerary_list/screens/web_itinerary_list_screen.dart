@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:travel_planner_pro/customWidgets/loader.dart';
+import 'package:travel_planner_pro/features/empty/screens/empty_screen.dart';
 import 'package:travel_planner_pro/features/itinerary_list/widgets/itinerary_list_card.dart';
 import 'package:travel_planner_pro/providers/itinerary_provider.dart';
 
@@ -15,11 +16,12 @@ class WebItineraryListScreen extends StatefulWidget {
 }
 
 class _WebItineraryListScreenState extends State<WebItineraryListScreen> {
-  ItineraryListService itineraryService = ItineraryListService();
+  late ItineraryListService itineraryService;
   late ItineraryProvider provider;
   @override
   void initState() {
     super.initState();
+    itineraryService = ItineraryListService();
     fetch();
   }
 
@@ -52,30 +54,32 @@ class _WebItineraryListScreenState extends State<WebItineraryListScreen> {
             ? const Center(
                 child: Loader(),
               )
-            : Padding(
-                padding: const EdgeInsets.all(12),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  physics: const BouncingScrollPhysics(),
-                  child: Wrap(
-                    runSpacing: 10,
-                    children: value.itineraryList!.map((e) {
-                      return ItineraryListCard(
-                        wf: 0.25,
-                        hf: 0.5,
-                        travelMode: e.travelMode,
-                        id: e.id,
-                        details: e.items,
-                        planName: e.planName,
-                        destination: e.destination,
-                        startDate: e.travelStartDate,
-                        endDate: e.travelEndDate,
-                        cost: e.estimatedCost,
-                      );
-                    }).toList(),
-                  ),
-                ),
-              );
+            : value.itineraryList!.isEmpty
+                ? const EmptyScreen()
+                : Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      physics: const BouncingScrollPhysics(),
+                      child: Wrap(
+                        runSpacing: 10,
+                        children: value.itineraryList!.map((e) {
+                          return ItineraryListCard(
+                            wf: 0.25,
+                            hf: 0.5,
+                            travelMode: e.travelMode,
+                            id: e.id,
+                            details: e.items,
+                            planName: e.planName,
+                            destination: e.destination,
+                            startDate: e.travelStartDate,
+                            endDate: e.travelEndDate,
+                            cost: e.estimatedCost,
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  );
       },
     );
   }

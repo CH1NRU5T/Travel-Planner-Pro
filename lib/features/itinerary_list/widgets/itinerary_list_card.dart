@@ -46,6 +46,7 @@ class ItineraryListCard extends StatelessWidget {
         );
       },
       child: Card(
+        color: Colors.grey[300],
         child: SizedBox(
           width: MediaQuery.sizeOf(context).width * wf,
           height: MediaQuery.sizeOf(context).height * hf,

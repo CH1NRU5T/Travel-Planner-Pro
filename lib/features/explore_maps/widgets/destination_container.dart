@@ -60,56 +60,6 @@ class DestinationContainer extends StatelessWidget {
             ),
           ),
         ),
-
-        // Stack(children: [
-        //   Image.network(widget.src),
-
-        //   // TODO: change to cached network image
-        //   Container(
-        //     decoration: const BoxDecoration(
-        //       color: Colors.white,
-        //       borderRadius: BorderRadius.only(
-        //           bottomLeft: Radius.circular(14),
-        //           bottomRight: Radius.circular(14)),
-        //     ),
-        //     height: MediaQuery.sizeOf(context).height * 0.7,
-        //     width: MediaQuery.sizeOf(context).width * 1,
-        //     child: Column(
-        //       children: [
-        //         Text(widget.placeName),
-        //         Text(widget.averageTravelExpenses),
-        //       ],
-        //     ),
-        //   ),
-
-        //   // Column(
-        //   //   crossAxisAlignment: CrossAxisAlignment.stretch,
-        //   //   children: [
-        //   //     const Expanded(
-        //   //       child: SizedBox(),
-        //   //     ),
-        //   //     Expanded(
-        //   //       flex: 2,
-        //   //       child: Container(
-        //   //         decoration: const BoxDecoration(
-        //   //           color: Colors.white,
-        //   //           borderRadius: BorderRadius.only(
-        //   //             bottomLeft: Radius.circular(14),
-        //   //             bottomRight: Radius.circular(14),
-        //   //           ),
-        //   //         ),
-        //   //         child: Column(
-        //   //           children: [
-        //   //             Text(widget.placeName),
-        //   //             const Divider(),
-        //   //             Text(widget.averageTravelExpenses),
-        //   //           ],
-        //   //         ),
-        //   //       ),
-        //   //     ),
-        //   //   ],
-        //   // )
-        // ]),
       ),
     );
   }

@@ -5,6 +5,7 @@ import 'package:travel_planner_pro/features/itinerary_list/widgets/itinerary_lis
 import 'package:travel_planner_pro/providers/itinerary_provider.dart';
 
 import '../../../models/itinerary_model.dart';
+import '../../empty/screens/empty_screen.dart';
 import '../services/itinerary_list_service.dart';
 
 class MobileItineraryListScreen extends StatefulWidget {
@@ -53,30 +54,32 @@ class _MobileItineraryListScreenState extends State<MobileItineraryListScreen> {
             ? const Center(
                 child: Loader(),
               )
-            : Padding(
-                padding: const EdgeInsets.all(12),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  physics: const BouncingScrollPhysics(),
-                  child: Wrap(
-                    runSpacing: 10,
-                    children: value.itineraryList!.map((e) {
-                      return ItineraryListCard(
-                        wf: 1,
-                        hf: 0.4,
-                        travelMode: e.travelMode,
-                        id: e.id,
-                        details: e.items,
-                        planName: e.planName,
-                        destination: e.destination,
-                        startDate: e.travelStartDate,
-                        endDate: e.travelEndDate,
-                        cost: e.estimatedCost,
-                      );
-                    }).toList(),
-                  ),
-                ),
-              );
+            : value.itineraryList!.isEmpty
+                ? const EmptyScreen()
+                : Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      physics: const BouncingScrollPhysics(),
+                      child: Wrap(
+                        runSpacing: 10,
+                        children: value.itineraryList!.map((e) {
+                          return ItineraryListCard(
+                            wf: 1,
+                            hf: 0.4,
+                            travelMode: e.travelMode,
+                            id: e.id,
+                            details: e.items,
+                            planName: e.planName,
+                            destination: e.destination,
+                            startDate: e.travelStartDate,
+                            endDate: e.travelEndDate,
+                            cost: e.estimatedCost,
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  );
       },
     );
   }
